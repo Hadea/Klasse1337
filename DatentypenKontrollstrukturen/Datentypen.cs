@@ -16,19 +16,27 @@
         long Ganzzahl64Bit; // +/- 9 Trillionen?
         ulong Ganzzahl64BitOhneVorzeichen; // 0 bis 18 Trillionen?
 
+        int MitBasis10Schreibweise = 6429;
+        int MitBasis10UndTrenner = 6_429; // unterstrich dient nur der lesbarkeit und keine keine funktion
+        int MitBasis2Befüllt = 0b_0001_1001_0001_1101; // binäre schreibweise, müssen immer 4er-blöcke sein
+        int MitBasis16Befüllt = 0x191D;// hex schreibweise, immer 2er blöcke
+
         // Angenäherte Zahlen / Gebrochene Zahlen
 
-        float Fliesskomma32Bit; // 5 bis 7 stellen genau
-        double Flieskomma64Bit; // 13 Stellen genau
+        float Fliesskomma32Bit = 1.0f; // 5 bis 7 stellen genau
+        double Flieskomma64Bit = 1.0d; // 13 Stellen genau
         decimal Fliesskomma128Bit; // braucht man fast nicht, VORSICHT SQL kennt das als Ganzzahl
 
         // Zeichen
 
-        string Text; // Text/Zeichenkette, 2Byte pro Zeichen
-        char Buchstabe; // ein einzelnes Zeichen, 2 Byte
+        string Text = "Hallo"; // Text/Zeichenkette, 2Byte pro Zeichen, Anführungszeichen
+        char Buchstabe = 'P'; // ein einzelnes Zeichen, 2 Byte, Hochkomma
 
         // Bit
         bool EinzelnesBit; // nur true oder false
+
+
+
 
     }
 }
