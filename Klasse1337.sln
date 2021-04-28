@@ -5,14 +5,16 @@ VisualStudioVersion = 16.0.31205.134
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Geldautomat", "Geldautomat\Geldautomat.csproj", "{D8E3CE63-C855-4A65-84EE-A744EE722742}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatentypenKontrollstrukturen", "DatentypenKontrollstrukturen\DatentypenKontrollstrukturen.csproj", "{70B954FF-0960-4175-ACC4-51758B2DDCC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DatentypenKontrollstrukturen", "DatentypenKontrollstrukturen\DatentypenKontrollstrukturen.csproj", "{70B954FF-0960-4175-ACC4-51758B2DDCC0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Lotto", "Lotto\Lotto.csproj", "{4C7B87AE-62B2-49DC-9CBB-6920BBF73100}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Lotto", "Lotto\Lotto.csproj", "{4C7B87AE-62B2-49DC-9CBB-6920BBF73100}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B4859EA3-E57F-4EE7-A256-DDFB7299561F}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Sort", "Sort\Sort.csproj", "{395BFED2-A53B-4AB2-A720-9E52B4EA0E25}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,6 +34,10 @@ Global
 		{4C7B87AE-62B2-49DC-9CBB-6920BBF73100}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4C7B87AE-62B2-49DC-9CBB-6920BBF73100}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4C7B87AE-62B2-49DC-9CBB-6920BBF73100}.Release|Any CPU.Build.0 = Release|Any CPU
+		{395BFED2-A53B-4AB2-A720-9E52B4EA0E25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{395BFED2-A53B-4AB2-A720-9E52B4EA0E25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{395BFED2-A53B-4AB2-A720-9E52B4EA0E25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{395BFED2-A53B-4AB2-A720-9E52B4EA0E25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
