@@ -6,13 +6,16 @@ namespace DatentypenKontrollstrukturen
     {
         static void Main(string[] args)
         {
-            int A = 2;//  0000 0010
-            int B = 1;//  0000 0001
-            //            0000 0011
-            
-            int ergebnis = A | B;
+            //Container.DoSomething();
 
-            Console.WriteLine(ergebnis);
+            for (int Alpha = 0; Alpha < 3; Alpha++)
+            {
+                for (int Beta = 0; Beta < 5; Beta++)
+                {
+                    Console.WriteLine("Alpha: " + Alpha + " Beta: " + Beta);
+                }
+            }
+
 
         }
     }
