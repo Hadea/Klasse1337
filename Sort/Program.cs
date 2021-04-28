@@ -7,9 +7,14 @@ namespace Sort
     {
         static void Main(string[] args)
         {
-            List<byte> ArrayToSort = new() { 7, 5, 2, 3, 9, 1, 8 };
+            //List<byte> ArrayToSort = new() { 7, 5, 2, 3, 9, 1, 8 };
 
-            for (byte counter = 0; counter < ArrayToSort.Count; counter++)
+            byte[] ArrayToSort = new byte[30];
+
+            Random rndGen = new();
+            rndGen.NextBytes(ArrayToSort);
+
+            for (byte counter = 0; counter < ArrayToSort.Length; counter++)
             {
                 Console.Write(ArrayToSort[counter] + " ");
             }
@@ -26,9 +31,9 @@ namespace Sort
 
             // sortieren
 
-            for (int outer = 0; outer < ArrayToSort.Count; outer++) // alle elemente des arrays durchgehen
+            for (int outer = 0; outer < ArrayToSort.Length -1 ; outer++) // alle elemente des arrays durchgehen
             {
-                for (int inner = outer + 1; inner < ArrayToSort.Count; inner++)//alle verbleibenden elemente des array durchgehen
+                for (int inner = outer + 1; inner < ArrayToSort.Length; inner++)//alle verbleibenden elemente des array durchgehen
                 {
                     if (ArrayToSort[outer] > ArrayToSort[inner])//wenn element an äusserem zähler grösser als element an innerem zähler
                     {
@@ -45,9 +50,6 @@ namespace Sort
             {
                 Console.Write(item + " ");
             }
-
-            // nochmal ausgeben
-
         }
     }
 }
