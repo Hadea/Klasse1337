@@ -1,11 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 
 namespace Sort
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             //List<byte> ArrayToSort = new() { 7, 5, 2, 3, 9, 1, 8 };
 
@@ -19,7 +18,7 @@ namespace Sort
                 Console.Write(ArrayToSort[counter] + " ");
             }
 
-            int sum = 0;
+            uint sum = 0;
             // summe aller element des arrays
             foreach (var item in ArrayToSort)
             {
@@ -50,6 +49,40 @@ namespace Sort
             {
                 Console.Write(item + " ");
             }
+
+            // Ausgabe von "Korrekt sortiert" wenn das array aufsteigend sortiert ist, anderfalls
+            // "Fehler beim sortieren" ausgeben
+
+            /*
+             * das array von anfang bis ende durchgehen
+             *      wenn aktuelles element grösser als das nachfolgende element
+             *          Fehler ausgeben
+             *          fehlersuche beenden
+             *      ende wenn
+             * ende array durchgehen
+             */
+
+            bool IsSorted = true;
+            for (int counter = 0; counter < ArrayToSort.Length -1; counter++)
+            {
+                if (ArrayToSort[counter] > ArrayToSort[counter+1])
+                {
+                    IsSorted = false;
+                    break;
+                }
+            }
+
+            if (IsSorted)
+            {
+                Console.WriteLine("Hat alles geklappt");
+            }
+            else
+            {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine("Fehler!!");
+                Console.ResetColor();
+            }
+
         }
     }
 }
