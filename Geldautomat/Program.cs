@@ -6,7 +6,8 @@ namespace Geldautomat
     {
         static void Main()
         {
-            printGreeting();
+            Console.WriteLine("Hallo, ich bin ein Geldautomat");
+            Console.WriteLine("Bitte Karte einschieben");
             string cardID;
             cardID = Console.ReadLine();
 
@@ -16,17 +17,13 @@ namespace Geldautomat
                 return;
             }
 
+            // bis zu 3x nach PIN fragen, wenn dann noch immer falsch -> sperren und ende
 
+            // fragen wieviel geld der nutzer haben möchte
 
-        }
-
-        /// <summary>
-        /// Prints a greeting and asks for customer card
-        /// </summary>
-        private static void printGreeting()
-        {
-            Console.WriteLine("Hallo, ich bin ein Geldautomat");
-            Console.WriteLine("Bitte Karte einschieben");
+            // geld ausgeben (writeline genügt)
+            // karte ausgeben (writeline genügt)
+            // geld abbuchen (writeline genügt)
         }
     }
 }
