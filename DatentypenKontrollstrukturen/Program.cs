@@ -1,13 +1,17 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace DatentypenKontrollstrukturen
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            //Funktionen func = new();
-            Funktionen.MyStaticFunction();
+            Klassen.DoSomething();
+
+            
         }
     }
+
+
 }
