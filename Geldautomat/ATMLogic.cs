@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Geldautomat
@@ -37,6 +38,7 @@ namespace Geldautomat
             remainingTries = maximumTries;
             // connect to network
             // connect to database
+            Thread.Sleep(1000);
             Mashine = MashineState.Running;
         }
         public void CheckCard(string CardID)
@@ -45,6 +47,11 @@ namespace Geldautomat
                 User = LoginState.CardAccepted;
             else 
                 User = LoginState.CardRejected;
+
+            if (CardID == "abschalten")
+            {
+                ShutdownMashine();
+            }
         }
 
         public void CheckPin(short PIN)

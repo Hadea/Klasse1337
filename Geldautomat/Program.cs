@@ -13,8 +13,6 @@ namespace Geldautomat
             ATMLogic logic = new();
             Console.WriteLine("Status: " + logic.Mashine);// enum in string verwandeln für eine ausgabe ist eigendlich nicht erwünscht, aber hier der einfachheit gemacht
 
-            Thread.Sleep(1000);// 1 Sekunde pause für diesen Thread
-
             while (logic.Mashine == MashineState.Running)
             {
                 PrintGreeting();
