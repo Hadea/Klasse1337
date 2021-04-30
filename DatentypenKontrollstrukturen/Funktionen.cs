@@ -61,5 +61,9 @@ namespace DatentypenKontrollstrukturen
 
         public static void MyStaticFunction()
         { }
+
+        //TODO ref
+        //TODO out
+        //TODO in
     }
 }
