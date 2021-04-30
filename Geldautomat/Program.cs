@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading;
 
 namespace Geldautomat
 {
@@ -7,39 +8,49 @@ namespace Geldautomat
 
         static void Main()
         {
-            PrintGreeting();
+            Console.Clear(); // bildschirm leeren
+            Console.WriteLine("Starte Geldautomat");
+            ATMLogic logic = new();
+            Console.WriteLine("Status: " + logic.Mashine);// enum in string verwandeln für eine ausgabe ist eigendlich nicht erwünscht, aber hier der einfachheit gemacht
 
-            string cardID;
-            cardID = Console.ReadLine(); // entspricht std::cin , liesst von der konsole bis zum enter
+            Thread.Sleep(1000);// 1 Sekunde pause für diesen Thread
 
-            if (cardID[0] != 'K')
+            while (logic.Mashine == MashineState.Running)
             {
-                Console.WriteLine("Karte wird eingezogen weil ungültig");
-                return;
-            }
-
-
-            Console.WriteLine("Bitte Pin eingeben:");
-            bool LoginStatus = false;
-            byte TriesRemaining = 3;
-            do
-            {
-                string pin = Console.ReadLine();
-                if (pin == "1337")
+                PrintGreeting();
+                string cardID = Console.ReadLine(); // entspricht std::cin , liesst von der konsole bis zum enter
+                logic.CheckCard(cardID);
+                if (logic.User == LoginState.CardBlocked ||
+                    logic.User == LoginState.CardRejected)
                 {
-                    LoginStatus = true;
-                    break;
+                    Console.WriteLine("Karte wird eingezogen weil ungültig");
+                    continue; // beendet den durchlauf vorzeitig und startet den nächsten
                 }
-                Console.WriteLine("Pin falsch!");
 
-            } while (--TriesRemaining > 0);
+                Console.WriteLine("Bitte Pin eingeben:");
 
-            if (LoginStatus == false)
-            {
-                Console.WriteLine("3x Falscher Pin. Karte eingezogen");
-                return;
+                do
+                {
+                    string pinText = Console.ReadLine();
+                    short pin;
+                    pin = short.Parse(pinText);
+                    logic.CheckPin(pin);
+
+                } while (logic.User != LoginState.LoggedIn &&
+                         logic.User != LoginState.CardBlocked);
+
+                if (logic.User == LoginState.CardBlocked)
+                {
+                    Console.WriteLine("3x Falscher Pin, Karte wird eingezogen und Konto Blockiert");
+                    continue;
+                }
+
+                PrintWithdrawal();
             }
+        }
 
+        private static void PrintWithdrawal()
+        {
             Console.WriteLine("Wieviel Geld möchten sie abheben?");
             string Abhebebetrag = Console.ReadLine();
 
@@ -50,6 +61,8 @@ namespace Geldautomat
 
         private static void PrintGreeting()
         {
+            Thread.Sleep(1000);
+            Console.Clear();
             Console.WriteLine("Hallo, ich bin ein Geldautomat");
             Console.WriteLine("Bitte Karte einschieben");
         }
