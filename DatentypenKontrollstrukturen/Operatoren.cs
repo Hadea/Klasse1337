@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace DatentypenKontrollstrukturen
 {
@@ -146,10 +147,29 @@ namespace DatentypenKontrollstrukturen
                 Console.WriteLine($"Zahl {zufallszahl,5} ist zufällig gewählt");
             }
 
-            //todo linksbündig
-            //todo dezimalpunkte
-            //todo datum
-            //todo währung
+            for (int counter = 0; counter < 10; counter++)
+            {
+                int zufallszahl = rndGen.Next(10, 11000);
+                // die 5 hinter dem komma sagt wieviel platz mindestens benutzt werden soll
+                // verbraucht die zahl weniger wird mit leerzeichen aufgefüllt. Linksbündig.
+                Console.WriteLine($"Zahl {zufallszahl,-5} ist zufällig gewählt");
+            }
+
+            
+            
+            float zuFormatierendeZahl = 123456.1f;
+            // dezimalpunkte
+            Console.WriteLine(zuFormatierendeZahl.ToString("0.000"));// 3 stellen hinter dem komma anzeigen
+            Console.WriteLine(uint.MaxValue.ToString("X"));
+            //währung
+            Console.OutputEncoding = Encoding.UTF8; // zeichensatz umstellen damit das Währungsicon dargestellt werden kann
+            Console.WriteLine("€");
+            Console.WriteLine("Dieser Betrag ist Währung :" + zuFormatierendeZahl.ToString("c",CultureInfo.CreateSpecificCulture("de-DE")));//formatiert in deutscher Währungsschreibweise
+            Console.WriteLine("Dieser Betrag ist Währung :" + zuFormatierendeZahl.ToString("c",CultureInfo.CreateSpecificCulture("en-US")));//formatiert in englischer Währungsschreibweise
+            Console.WriteLine($"Dieser Betrag ist auch Währung : {zuFormatierendeZahl:C4}"); // formatiert als währung (anhand Betriebssystem)  mit 4 nachkommastellen
+            //Datumsformatierung anhand CultureInfo
+            Console.WriteLine(DateTime.Now.ToString(CultureInfo.CreateSpecificCulture("de-DE")));// datum in deutsch
+            Console.WriteLine(DateTime.Now.ToString(CultureInfo.CreateSpecificCulture("en-US")));// datum in englisch
             Console.ReadLine();
         }
 
