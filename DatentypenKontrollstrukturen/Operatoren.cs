@@ -8,7 +8,7 @@ namespace DatentypenKontrollstrukturen
 {
     class Operatoren
     {
-        public void DoSomething()
+        public static void DoSomething()
         {
             int A = 5; // zuweisung
             int B = 7;
@@ -77,6 +77,80 @@ namespace DatentypenKontrollstrukturen
 
 
             ergebnis = (int)(Optionen.AntialiasingEin | Optionen.VSyncEin);
+
+
+            ////////////////////////////////////////
+            ///Berechnungen mit Fliesskommazahlen
+            Console.ReadLine();
+            Console.Clear();
+            float Af = 7.6f; // float wert wird in float variable gesteckt
+            float Bf = 5; // integer wert wird implizit in float konvertiert und in variable gesteckt
+            int Ci = 13;
+            float resultFloat = Af / Bf; // nachkommastellen werden berechnet
+            Console.WriteLine(resultFloat);
+            Console.WriteLine(Af / Ci); // auch hier wird der int in float verwandelt und die float-variante des teilens verwendet
+
+            int convertiert = (int)Af; // Nachkommastellen werden abgeschnitten und nicht gerundet
+            convertiert = Convert.ToInt32(Af); // rundet beim konvertieren, sehr praktisch beim if
+            Console.WriteLine(convertiert);
+
+            ///////////////////////////////////
+            // Besonderheiten mit Vergleichen und float
+
+            resultFloat = (0.2f * 0.2f) / 0.2f;
+            Console.WriteLine( resultFloat ); // ergibt 0,20000002 
+            if (0.2f == resultFloat)//mathematisch sollte true rauskommen, durch float-ungenauigkeit aber false
+                Console.WriteLine("treffer");
+            else
+                Console.WriteLine("nope");
+
+            Console.WriteLine("A ist " + 0.2f + " B ist " + Math.Round(resultFloat, 1, MidpointRounding.AwayFromZero));
+
+            if (Math.Round(0.2f, 1,MidpointRounding.AwayFromZero) == Math.Round(resultFloat, 1, MidpointRounding.AwayFromZero))
+                Console.WriteLine("treffer");
+            else
+                Console.WriteLine("nope");
+
+            if ((int)(0.2f*10) == (int)(resultFloat*10))
+                Console.WriteLine("treffer");
+            else
+                Console.WriteLine("nope");
+
+
+
+            //////////////////////////////////////////////////
+            // Ausgabe von Werten
+
+            // 1. Variante "concat"
+            // durch jedes + werden zwei strings zusammenin einen neuen string konvertiert
+            // langsam wenn viele + zeichen verwendet werden
+            Console.WriteLine("WertA " + Af + " WertB " + Bf);
+
+            // 2. Variante "lückentext"
+            // variablen werden in strings konvertiert und dann zusammen mit dem äusseren text in einen
+            // neuen ergebnisstring verwandelt. etwas effizienter als + aber nicht schleifentauglich
+            Console.WriteLine($"WertA {Af} WertB {Bf}");
+
+            // 3. Variante "classic printf"
+            // konvertiert die zusätzlichen parameter und füllt die lücken
+            Console.WriteLine("WertA {0} WertB {1}", Af, Bf);
+
+
+            // mit formatierungen
+            Random rndGen = new();
+            for (int counter = 0; counter < 10; counter++)
+            {
+                int zufallszahl = rndGen.Next(10, 11000);
+                // die 5 hinter dem komma sagt wieviel platz mindestens benutzt werden soll
+                // verbraucht die zahl weniger wird mit leerzeichen aufgefüllt. rechtsbündig.
+                Console.WriteLine($"Zahl {zufallszahl,5} ist zufällig gewählt");
+            }
+
+            //todo linksbündig
+            //todo dezimalpunkte
+            //todo datum
+            //todo währung
+            Console.ReadLine();
         }
 
 
