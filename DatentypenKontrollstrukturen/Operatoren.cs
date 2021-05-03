@@ -161,6 +161,7 @@ namespace DatentypenKontrollstrukturen
             // dezimalpunkte
             Console.WriteLine(zuFormatierendeZahl.ToString("0.000"));// 3 stellen hinter dem komma anzeigen
             Console.WriteLine(uint.MaxValue.ToString("X"));
+            Console.WriteLine(zuFormatierendeZahl.ToString("N"));// punkte und komma zum formatieren, N1 würde eine nachkommastelle nutzen
             //währung
             Console.OutputEncoding = Encoding.UTF8; // zeichensatz umstellen damit das Währungsicon dargestellt werden kann
             Console.WriteLine("€");
