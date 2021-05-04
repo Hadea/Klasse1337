@@ -7,7 +7,7 @@ namespace DatentypenKontrollstrukturen
     {
         static void Main()
         {
-            Operatoren.DoSomething();
+            Pseudocode.DoSomething();
 
             
         }
