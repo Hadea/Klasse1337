@@ -5,10 +5,10 @@ namespace Geldautomat
 {
     class Program
     {
-
         static void Main()
         {
             Console.Clear(); // bildschirm leeren
+            PrintLogo();
             Console.WriteLine("Starte Geldautomat");
             ATMLogic logic = new();
             Console.WriteLine("Status: " + logic.Mashine);// enum in string verwandeln für eine ausgabe ist eigendlich nicht erwünscht, aber hier der einfachheit gemacht
@@ -45,6 +45,16 @@ namespace Geldautomat
 
                 PrintWithdrawal();
             }
+        }
+
+        private static void PrintLogo()
+        {
+            Console.WriteLine(@" █████╗ ████████╗███╗   ███╗");
+            Console.WriteLine(@"██╔══██╗╚══██╔══╝████╗ ████║");
+            Console.WriteLine(@"███████║   ██║   ██╔████╔██║");
+            Console.WriteLine(@"██╔══██║   ██║   ██║╚██╔╝██║");
+            Console.WriteLine(@"██║  ██║   ██║   ██║ ╚═╝ ██║");
+            Console.WriteLine(@"╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═╝");
         }
 
         private static void PrintWithdrawal()
