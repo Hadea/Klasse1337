@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DatentypenKontrollstrukturen
+﻿namespace DatentypenKontrollstrukturen
 {
     class Program
     {
@@ -12,6 +9,4 @@ namespace DatentypenKontrollstrukturen
             
         }
     }
-
-
 }

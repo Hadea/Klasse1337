@@ -42,31 +42,35 @@ namespace DatentypenKontrollstrukturen
                 Console.WriteLine("Welches getränk möchten sie?");// Ausgabe: "Welches getränk möchten sie"
                 string Nutzereingabe;
                 Nutzereingabe = Console.ReadLine();  // Nutzereingabe wunsch
-                if (Nutzereingabe == "Kaffee")// wenn wunsch Kaffee
+
+                switch (Nutzereingabe)
                 {
-                    if (BehälterWasser >= 10 && BehälterKaffee >= 5)// wenn Wasserbehälter >10 und Kaffebehälter >5
-                    {
-                        BehälterKaffee = BehälterKaffee - 5; // 5 kaffee aus container nehmen
-                        BehälterWasser -= 10; // 10 wasser aus container nehmen
-                        Console.WriteLine("Gewünschter Kaffee"); //Ausgabe: "Gewünschter Kaffee"
-                    }
-                    else// andernfalls
-                    {
-                        Console.WriteLine("Bitte behälter füllen");// ausgabe "Bitte behälter füllen"
-                    }// ende wenn
-                }
-                if (Nutzereingabe == "Tee")// wenn wunsch Tee
-                {
-                    Console.WriteLine("Hier ist ihr Tee");//      Ausgabe: "Hier ist ihr Tee"
-                }
-                if (Nutzereingabe == "Abschalten")// wenn wunsch Abschalten
-                {
-                    haltewunsch = true; //      haltewunsch
+                    case "Kaffee":
+                        if (BehälterWasser >= 10 && BehälterKaffee >= 5)// wenn Wasserbehälter >10 und Kaffebehälter >5
+                        {
+                            BehälterKaffee = BehälterKaffee - 5; // 5 kaffee aus container nehmen
+                            BehälterWasser -= 10; // 10 wasser aus container nehmen
+                            Console.WriteLine("Gewünschter Kaffee"); //Ausgabe: "Gewünschter Kaffee"
+                        }
+                        else// andernfalls
+                        {
+                            Console.WriteLine("Bitte behälter füllen");// ausgabe "Bitte behälter füllen"
+                        }// ende wenn
+                        break;
+                    case "Tee":
+                        Console.WriteLine("Hier ist ihr Tee");//      Ausgabe: "Hier ist ihr Tee"
+                        break;
+                    case "Abschalten":
+                        haltewunsch = true; //      haltewunsch
+                        break;
+                    default:
+                        Console.WriteLine("unbekannte eingabe");
+                        break;
                 }
             }
-            while (haltewunsch == false) ; // solange haltewunsch "nö": wieder nach oben
-
+            while (haltewunsch == false); // solange haltewunsch "nö": wieder nach oben
         }
+
 
     }
 }
