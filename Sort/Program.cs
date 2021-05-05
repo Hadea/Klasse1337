@@ -14,41 +14,22 @@ namespace Sort
             rndGen.NextBytes(ArrayToSort);
 
             for (byte counter = 0; counter < ArrayToSort.Length; counter++)
-            {
                 Console.Write(ArrayToSort[counter] + " ");
-            }
 
+            /*
             uint sum = 0;
             // summe aller element des arrays
             foreach (var item in ArrayToSort)
-            {
                 sum += item; // entspricht sum = sum + item
-            }
             Console.WriteLine("\nDie summe aller elemente ist: " + sum + "\n");
+            */
 
-
-
-            // sortieren
-
-            for (int outer = 0; outer < ArrayToSort.Length -1 ; outer++) // alle elemente des arrays durchgehen
-            {
-                for (int inner = outer + 1; inner < ArrayToSort.Length; inner++)//alle verbleibenden elemente des array durchgehen
-                {
-                    if (ArrayToSort[outer] > ArrayToSort[inner])//wenn element an äusserem zähler grösser als element an innerem zähler
-                    {
-                        byte backup = ArrayToSort[outer];//backup erstellen vom äusseren wert
-                        ArrayToSort[outer] = ArrayToSort[inner];//äusseren wert mit innerem überschreiben
-                        ArrayToSort[inner] = backup;//inneren wert mit backup überschreiben
-                    }//ende wenn
-                }//ende array durchgehen
-            } // ende array durchgehen
-
+            SelectionSortNaiive(ArrayToSort);
+            MergeSortNaiive(ArrayToSort);
 
             // sortiertes array ausgeben
             foreach (var item in ArrayToSort)
-            {
                 Console.Write(item + " ");
-            }
 
             // Ausgabe von "Korrekt sortiert" wenn das array aufsteigend sortiert ist, anderfalls
             // "Fehler beim sortieren" ausgeben
@@ -63,9 +44,9 @@ namespace Sort
              */
 
             bool IsSorted = true;
-            for (int counter = 0; counter < ArrayToSort.Length -1; counter++)
+            for (int counter = 0; counter < ArrayToSort.Length - 1; counter++)
             {
-                if (ArrayToSort[counter] > ArrayToSort[counter+1])
+                if (ArrayToSort[counter] > ArrayToSort[counter + 1])
                 {
                     IsSorted = false;
                     break;
@@ -83,6 +64,50 @@ namespace Sort
                 Console.ResetColor();
             }
 
+        }
+
+        private static void MergeSortNaiive(byte[] arrayToSort)
+        {
+            // teilen
+
+            // wenn zu gross
+            //      halbieren
+            //      selbstaufruf für beide hälften
+            // ende wenn
+
+            // zusammenfügen 
+
+            // solange beide seiten noch daten haben
+            //     wenn rechte seite grösser als linke
+            //          linke seite nehmen
+            //     andernfalls
+            //          rechte seite nehmen
+            //      ende wenn
+            // ende solange
+
+            // reste von links anfügen
+
+            // reste von rechts anfügen
+
+                        
+        }
+
+        private static void SelectionSortNaiive(byte[] ArrayToSort)
+        {
+            // sortieren
+
+            for (int outer = 0; outer < ArrayToSort.Length - 1; outer++) // alle elemente des arrays durchgehen
+            {
+                for (int inner = outer + 1; inner < ArrayToSort.Length; inner++)//alle verbleibenden elemente des array durchgehen
+                {
+                    if (ArrayToSort[outer] > ArrayToSort[inner])//wenn element an äusserem zähler grösser als element an innerem zähler
+                    {
+                        byte backup = ArrayToSort[outer];//backup erstellen vom äusseren wert
+                        ArrayToSort[outer] = ArrayToSort[inner];//äusseren wert mit innerem überschreiben
+                        ArrayToSort[inner] = backup;//inneren wert mit backup überschreiben
+                    }//ende wenn
+                }//ende array durchgehen
+            } // ende array durchgehen
         }
     }
 }
