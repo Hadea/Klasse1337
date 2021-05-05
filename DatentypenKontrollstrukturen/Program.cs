@@ -4,7 +4,7 @@
     {
         static void Main()
         {
-            Pseudocode.DoSomething();
+            Enums.DoSomething();
 
             
         }

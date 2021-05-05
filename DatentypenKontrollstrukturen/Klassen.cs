@@ -69,6 +69,6 @@ namespace DatentypenKontrollstrukturen
             SchlüsselDrehen(); // die geerbte protected aus Auto
         }
     }
-
+    //TODO: partial class, sealed
 
 }
