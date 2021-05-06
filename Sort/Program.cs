@@ -68,17 +68,10 @@ namespace Sort
 
         private static bool CheckAscending(byte[] ArrayToSortA)
         {
-            bool IsSorted = true;
             for (int counter = 0; counter < ArrayToSortA.Length - 1; counter++)
-            {
                 if (ArrayToSortA[counter] > ArrayToSortA[counter + 1])
-                {
-                    IsSorted = false;
-                    break;
-                }
-            }
-
-            return IsSorted;
+                    return false;
+            return true;
         }
 
         private static void MergeSortNaive(byte[] ArrayToSort)
