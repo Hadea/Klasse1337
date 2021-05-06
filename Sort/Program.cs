@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace Sort
 {
@@ -6,90 +7,133 @@ namespace Sort
     {
         static void Main()
         {
-            //List<byte> ArrayToSort = new() { 7, 5, 2, 3, 9, 1, 8 };
+            byte[] ArrayToSortA = new byte[50000]; // Leeres Array der länge 30 erzeugen und in ArrayToSort ablegen
 
-            byte[] ArrayToSort = new byte[30];
+            Random rndGen = new();// zufallsgenerator Random erzeugen und in rndGen ablegen
+            rndGen.NextBytes(ArrayToSortA);// füllt das ArrayToSort mit zufallswerten.
 
-            Random rndGen = new();
-            rndGen.NextBytes(ArrayToSort);
+            byte[] ArrayToSortB = new byte[ArrayToSortA.Length];
+            ArrayToSortA.CopyTo(ArrayToSortB, 0);
 
-            for (byte counter = 0; counter < ArrayToSort.Length; counter++)
-                Console.Write(ArrayToSort[counter] + " ");
+            byte[] ArrayToSortC = new byte[ArrayToSortA.Length];
+            ArrayToSortA.CopyTo(ArrayToSortC, 0);
 
-            /*
-            uint sum = 0;
+
+            // ausgabe des Arrays
+            if (ArrayToSortA.Length < 31)
+                for (byte counter = 0; counter < ArrayToSortA.Length; counter++)
+                    Console.Write(ArrayToSortA[counter] + " ");
+
+            uint checkSumOriginal = 0;
             // summe aller element des arrays
-            foreach (var item in ArrayToSort)
-                sum += item; // entspricht sum = sum + item
-            Console.WriteLine("\nDie summe aller elemente ist: " + sum + "\n");
-            */
+            foreach (var item in ArrayToSortA)
+                checkSumOriginal += item; // entspricht sum = sum + item
+            Console.WriteLine("\nDie summe aller elemente ist: " + checkSumOriginal + "\n");
 
-            SelectionSortNaiive(ArrayToSort);
-            MergeSortNaiive(ArrayToSort);
+
+
+            DateTime startTimeSelection = DateTime.Now;
+            SelectionSortNaiive(ArrayToSortA);
+            DateTime endTimeSelection = DateTime.Now;
+
+            uint checkSumSelectionSort = 0;
+            foreach (var item in ArrayToSortA)
+                checkSumSelectionSort += item; // entspricht sum = sum + item
+
+            DateTime startTimeMerge = DateTime.Now;
+            MergeSortNaive(ArrayToSortB);
+            DateTime endTimeMerge = DateTime.Now;
+
+            uint checkSumMergeSort = 0;
+            foreach (var item in ArrayToSortA)
+                checkSumMergeSort += item; // entspricht sum = sum + item
+
+            DateTime startTimeBubble = DateTime.Now;
+            BubbleSort(ArrayToSortC);
+            DateTime endTimeBubble = DateTime.Now;
+
+            uint checkSumBubbleSort = 0;
+            foreach (var item in ArrayToSortA)
+                checkSumBubbleSort += item; // entspricht sum = sum + item
+            Console.WriteLine(@"Algorythmus   | Dauer  | Summe | Sortierung");
+            Console.WriteLine($"Selectionsort | { (endTimeSelection - startTimeSelection).TotalSeconds.ToString("N4") } | { (checkSumOriginal == checkSumSelectionSort), 5 } | { CheckAscending(ArrayToSortA) }");
+            Console.WriteLine($"Mergesort     | { (endTimeMerge - startTimeMerge).TotalSeconds.ToString("N4") } | { (checkSumOriginal == checkSumMergeSort), 5} | { CheckAscending(ArrayToSortB)}");
+            Console.WriteLine($"Bubblesort    | { (endTimeBubble - startTimeBubble).TotalSeconds.ToString("N4") } | { (checkSumOriginal == checkSumBubbleSort),5 } | { CheckAscending(ArrayToSortC)}");
 
             // sortiertes array ausgeben
-            foreach (var item in ArrayToSort)
-                Console.Write(item + " ");
+            if (ArrayToSortA.Length < 31)
+                foreach (var item in ArrayToSortA)
+                    Console.Write(item + " ");
+        }
 
-            // Ausgabe von "Korrekt sortiert" wenn das array aufsteigend sortiert ist, anderfalls
-            // "Fehler beim sortieren" ausgeben
-
-            /*
-             * das array von anfang bis ende durchgehen
-             *      wenn aktuelles element grösser als das nachfolgende element
-             *          Fehler ausgeben
-             *          fehlersuche beenden
-             *      ende wenn
-             * ende array durchgehen
-             */
-
+        private static bool CheckAscending(byte[] ArrayToSortA)
+        {
             bool IsSorted = true;
-            for (int counter = 0; counter < ArrayToSort.Length - 1; counter++)
+            for (int counter = 0; counter < ArrayToSortA.Length - 1; counter++)
             {
-                if (ArrayToSort[counter] > ArrayToSort[counter + 1])
+                if (ArrayToSortA[counter] > ArrayToSortA[counter + 1])
                 {
                     IsSorted = false;
                     break;
                 }
             }
 
-            if (IsSorted)
-            {
-                Console.WriteLine("Hat alles geklappt");
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Fehler!!");
-                Console.ResetColor();
-            }
-
+            return IsSorted;
         }
 
-        private static void MergeSortNaiive(byte[] arrayToSort)
+        private static void MergeSortNaive(byte[] ArrayToSort)
         {
+            ///////////////////////////////////
             // teilen
 
-            // wenn zu gross
-            //      halbieren
-            //      selbstaufruf für beide hälften
-            // ende wenn
+            if (ArrayToSort.Length < 2) return;
 
+            //      halbieren
+            byte[] leftSide = ArrayToSort.Take(ArrayToSort.Length / 2).ToArray();//take -> von anfang bis zu dem angegebenen index
+            byte[] rightSide = ArrayToSort.Skip(ArrayToSort.Length / 2).ToArray();//skip -> überspringt bis inclusive angegeben index und nimmt den rest
+
+            //      selbstaufruf für beide hälften
+            MergeSortNaive(leftSide);
+            MergeSortNaive(rightSide);
+
+            /////////////////////////////////
             // zusammenfügen 
 
-            // solange beide seiten noch daten haben
-            //     wenn rechte seite grösser als linke
-            //          linke seite nehmen
-            //     andernfalls
-            //          rechte seite nehmen
-            //      ende wenn
-            // ende solange
+            int leftPointer = 0, rightPointer = 0, originalPointer = 0;
+
+            while (leftPointer < leftSide.Length && rightPointer < rightSide.Length)// solange links noch nicht bis zum ende bearbeitet und rechts noch noch nicht bis zum ende bearbeitet
+            {
+                if (rightSide[rightPointer] > leftSide[leftPointer])//     wenn rechte seite grösser als linke
+                {
+                    //          linke seite nehmen
+                    ArrayToSort[originalPointer] = leftSide[leftPointer];
+                    leftPointer++;
+                }
+                else//     andernfalls
+                {
+                    //          rechte seite nehmen
+                    ArrayToSort[originalPointer] = rightSide[rightPointer];
+                    rightPointer++;
+                } //      ende wenn
+                originalPointer++;
+            }// ende solange
 
             // reste von links anfügen
+            while (leftPointer < leftSide.Length)
+            {
+                ArrayToSort[originalPointer] = leftSide[leftPointer];
+                leftPointer++;
+                originalPointer++;
+            }
+
 
             // reste von rechts anfügen
-
-                        
+            while (rightPointer < rightSide.Length)
+            {
+                ArrayToSort[originalPointer] = rightSide[rightPointer];
+                rightPointer++;
+                originalPointer++;
+            }
         }
 
         private static void SelectionSortNaiive(byte[] ArrayToSort)
@@ -108,6 +152,22 @@ namespace Sort
                     }//ende wenn
                 }//ende array durchgehen
             } // ende array durchgehen
+        }
+
+        private static void BubbleSort(byte[] ArrayToSort)
+        {
+            for (int limit = ArrayToSort.Length; limit >= 0; limit--)
+            {
+                for (int i = 0; i < limit - 1; i++)
+                {
+                    if (ArrayToSort[i + 1] < ArrayToSort[i])
+                    {
+                        byte backup = ArrayToSort[i];
+                        ArrayToSort[i] = ArrayToSort[i + 1];
+                        ArrayToSort[i + 1] = backup;
+                    }
+                }
+            }
         }
     }
 }
