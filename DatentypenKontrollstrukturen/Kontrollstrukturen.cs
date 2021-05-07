@@ -42,6 +42,11 @@ namespace DatentypenKontrollstrukturen
 
             if (8 < 7) throw new ArgumentOutOfRangeException(); // häufig am anfang einer funktion um die Parameter zu überprüfen
 
+            ////////////////////////////
+            // kurzschreibweise des if "inline if"
+            //                 ( test  ?   wenn true   : wenn false         )
+            Console.WriteLine( ( 8 < 7 ? "ist kleiner" : "ist nicht kleiner"));
+
             /////////////////////////////////////////////////////////////
 
             int counter = 5;
@@ -93,6 +98,34 @@ namespace DatentypenKontrollstrukturen
                     Console.WriteLine("Da ist eine eins oder sieben drin");
                     break;
             }
+
+
+            /////////////////////////////////////////////////
+            // kurzschreibweise für switch wenn dieser über die befüllung einer variablen entscheidet
+
+            // original:
+            bool ergebnis;
+            switch (Console.ReadLine())
+            {
+                case "123":
+                    ergebnis = true;
+                    break;
+                case "321":
+                    ergebnis = false;
+                    break;
+                default:
+                    ergebnis = false;
+                    break;
+            }
+
+            // kurz
+            ergebnis = (Console.ReadLine()) switch { "123" => true, "321" => false, _=> false };
+            // der unterstrich entspricht dem default
+
+
+
+
+
         }
 
     }
