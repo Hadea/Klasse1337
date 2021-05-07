@@ -78,6 +78,21 @@ namespace DatentypenKontrollstrukturen
             return (Number < 3 ? 1 : Fibonacci(Number - 1) + Fibonacci(Number - 2));
         }
 
+
+        public static int FibonacciSchleife(int Number)
+        {
+            // wenn Übergabe kleiner als 3
+            //  rückgabe 1
+            // ende wenn
+
+            // zählen von 3 bis zur angeforderten nummer
+            //    ergebnis ist vorgänger + vorvorgänger
+            //    vorvorgänger mit vorgäner ersetzen
+            //    vorgänger mit ergebnis ersetzen
+            // ende zählen
+
+            // ergebnis zurückgeben
+        }
         // Die Fibonacci Funktion umschreiben das sie anstelle einer Rekursion (selbstaufruf) eine schleife verwendet
 
         // Bonus : Die Rekursive Fibonacci Funktion umschreiben das sie zwischenergebnisse speichern kann
