@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace DatentypenKontrollstrukturen
@@ -81,6 +82,7 @@ namespace DatentypenKontrollstrukturen
 
         public static int FibonacciSchleife(int Number)
         {
+            throw new NotImplementedException();
             // wenn Übergabe kleiner als 3
             //  rückgabe 1
             // ende wenn
@@ -95,8 +97,15 @@ namespace DatentypenKontrollstrukturen
         }
         // Die Fibonacci Funktion umschreiben das sie anstelle einer Rekursion (selbstaufruf) eine schleife verwendet
 
-        // Bonus : Die Rekursive Fibonacci Funktion umschreiben das sie zwischenergebnisse speichern kann
 
+        // Bonus : Die Rekursive Fibonacci Funktion umschreiben das sie zwischenergebnisse speichern kann
+        public static int FibonacciMemoization(int Number, int[] precalculated = null )
+        {
+            if (Number < 3) return 1;
+            if (precalculated is null) precalculated = new int[Number+1];
+            if (precalculated[Number] != 0) return precalculated[Number];
+            return (Number < 3 ? 1 : FibonacciMemoization(Number - 1, precalculated) + FibonacciMemoization(Number - 2, precalculated));
+        }
 
         // fibonacci(8)
     }
