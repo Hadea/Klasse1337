@@ -4,8 +4,9 @@
     {
         static void Main()
         {
-            Enums.DoSomething();
-
+            //Enums.DoSomething();
+            //Funktionen.Rekursiv(1);
+            System.Console.WriteLine(  Funktionen.Fibonacci(8)); 
             
         }
     }

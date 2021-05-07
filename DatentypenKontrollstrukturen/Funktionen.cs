@@ -65,5 +65,24 @@ namespace DatentypenKontrollstrukturen
         //TODO ref
         //TODO out
         //TODO in
+
+        public static void Rekursiv(int Number)
+        {
+            if (Number > 3) return;
+            Rekursiv(Number + 1);
+            Console.WriteLine(Number);
+        }
+
+        public static int Fibonacci(int Number)// 1 1 2 3 5 8 13 21
+        {
+            return (Number < 3 ? 1 : Fibonacci(Number - 1) + Fibonacci(Number - 2));
+        }
+
+        // Die Fibonacci Funktion umschreiben das sie anstelle einer Rekursion (selbstaufruf) eine schleife verwendet
+
+        // Bonus : Die Rekursive Fibonacci Funktion umschreiben das sie zwischenergebnisse speichern kann
+
+
+        // fibonacci(8)
     }
 }
