@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace DatentypenKontrollstrukturen
 {
@@ -11,7 +12,7 @@ namespace DatentypenKontrollstrukturen
     {
         public static void DoSomething()
         {
-            
+
             // pfadangaben können mit beiden schrägstrichen erfolgen. Kommandomodus für schrägstriche durch das @ deaktiviert
             string pfad = @"c:\windows\" + "nsystem32.dll";
             if (File.Exists(pfad))
@@ -50,11 +51,62 @@ namespace DatentypenKontrollstrukturen
                 string zeile;
                 int zeilenNummer = 0;
 
-                while((zeile = reader.ReadLine()) != null)
+                while ((zeile = reader.ReadLine()) != null)
                 {
                     Console.WriteLine("Zeile " + zeilenNummer++ + " enthält" + zeile);
                 }
             }
+
+        }
+
+        public  static void WriteXML()
+        {
+            /////////////////////////////////////////////
+            // Dateien schreiben
+
+            //TODO: textserialisierung
+            DataFormat data = new();
+            data.Number = 200;
+            data.Text = "Hallo Welt!";
+            data.AuchVersteckt = false;
+            data.IntList.Add(5);
+            data.IntList.Add(7);
+            data.IntList.Add(2);
+
+
+            XmlSerializer xml = new(typeof(DataFormat));
+            using (StreamWriter writer = new("data.xml"))
+            {
+                xml.Serialize(writer, data);
+            }
+
+            DataFormat fromDisk;
+
+            if (File.Exists("data.xml"))
+            {
+                using (StreamReader reader = new("data.xml"))
+                {
+                    fromDisk = (DataFormat)xml.Deserialize(reader);
+                }
+            }
+
+
+            //TODO: binärserialisierung
+            //TODO: Handarbeit
         }
     }
+
+    public class DataFormat
+    {
+        public int Number;
+        public string Text;
+        private bool Versteckt = true; // wird nicht serialisiert da die Serializer-Klasse private nicht lesen darf
+
+        [XmlIgnore] // schaltet die serialisierung für die nächste variable ab
+        public bool AuchVersteckt;
+
+        public List<int> IntList = new();
+    }
+
+
 }
