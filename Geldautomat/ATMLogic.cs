@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 
 namespace Geldautomat
 {
@@ -9,6 +11,7 @@ namespace Geldautomat
 
         private byte remainingTries;
         private readonly byte maximumTries;
+        private readonly ContainerData container;
 
         public ATMLogic()
         {
@@ -17,6 +20,8 @@ namespace Geldautomat
             remainingTries = maximumTries;
             // connect to network
             // connect to database
+            container = new();
+            container.Load();
             Thread.Sleep(1000);
             Mashine = MashineState.Running;
         }
@@ -24,7 +29,7 @@ namespace Geldautomat
         {
             if (CardID[0] == 'K')
                 User = LoginState.CardAccepted;
-            else 
+            else
                 User = LoginState.CardRejected;
 
             if (CardID == "abschalten")
@@ -49,9 +54,30 @@ namespace Geldautomat
 
         public void ShutdownMashine()
         {
+            container.Save();
             // disconnect from database
             // network shutdown
             Mashine = MashineState.ShuttingDown;
+        }
+
+        public List<NoteStack> Withdraw(uint abhebebetrag)
+        {
+            
+            // container durchgehen von grösstem zu kleinstem inhalt
+            //      scheinanzahl  = abhebebetrag modulo containerinhalt
+            //      Minimum zwischen scheinanzahl und kontainervorrat auswählen
+            //      scheinanzahl und wert in Liste eintragen
+            //      scheinwert mal gewählte scheine von abhebebetrag abziehen
+            // ende container durchgehen
+
+            // wenn abhebebetrag 0 ist
+            //      scheine aus containern nehmen
+            //      scheinliste zurückgeben
+            // andernfalls
+            //      Fehler ausgeben das die scheine nicht passen
+            // ende wenn
+
+            throw new NotImplementedException();
         }
     }
 }
