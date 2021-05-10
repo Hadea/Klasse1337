@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Threading;
 
 namespace Geldautomat
@@ -49,12 +50,16 @@ namespace Geldautomat
 
         private static void PrintLogo()
         {
-            Console.WriteLine(@" █████╗ ████████╗███╗   ███╗");
-            Console.WriteLine(@"██╔══██╗╚══██╔══╝████╗ ████║");
-            Console.WriteLine(@"███████║   ██║   ██╔████╔██║");
-            Console.WriteLine(@"██╔══██║   ██║   ██║╚██╔╝██║");
-            Console.WriteLine(@"██║  ██║   ██║   ██║ ╚═╝ ██║");
-            Console.WriteLine(@"╚═╝  ╚═╝   ╚═╝   ╚═╝     ╚═╝");
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            string[] fileContent = File.ReadAllLines("Logo.txt"); // Datei zeilenweise lesen
+
+            for (int counter = 0; counter < fileContent.Length; counter++)// für jede Zeile
+            {
+                Console.SetCursorPosition(Console.WindowWidth / 2 - fileContent[counter].Length / 2, counter);//      Cursorposition verschieben damit die zeile zentriert ist
+                Console.WriteLine(fileContent[counter]); //      Zeile ausgeben
+            } // ende
+
+            Console.ResetColor();
         }
 
         private static void PrintWithdrawal()
