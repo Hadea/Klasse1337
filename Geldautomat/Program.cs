@@ -51,15 +51,21 @@ namespace Geldautomat
         private static void PrintLogo()
         {
             Console.ForegroundColor = ConsoleColor.DarkBlue;
-            string[] fileContent = File.ReadAllLines("Logo.txt"); // Datei zeilenweise lesen
 
-            for (int counter = 0; counter < fileContent.Length; counter++)// für jede Zeile
+            using (StreamReader reader = new StreamReader("Logo.txt"))
             {
-                Console.SetCursorPosition(Console.WindowWidth / 2 - fileContent[counter].Length / 2, counter);//      Cursorposition verschieben damit die zeile zentriert ist
-                Console.WriteLine(fileContent[counter]); //      Zeile ausgeben
-            } // ende
+                string line;
+                int distanceToTop = 0;
+
+                while ( ( line = reader.ReadLine() )  != null )
+                {
+                    Console.SetCursorPosition(Console.WindowWidth / 2 - line.Length / 2, distanceToTop++);//      Cursorposition verschieben damit die zeile zentriert ist
+                    Console.WriteLine(line); //      Zeile ausgeben
+                }
+            }
 
             Console.ResetColor();
+            Console.ReadLine();
         }
 
         private static void PrintWithdrawal()
