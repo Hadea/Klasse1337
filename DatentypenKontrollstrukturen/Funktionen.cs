@@ -76,24 +76,31 @@ namespace DatentypenKontrollstrukturen
 
         public static int Fibonacci(int Number)// 1 1 2 3 5 8 13 21
         {
+            SlowDown();
             return (Number < 3 ? 1 : Fibonacci(Number - 1) + Fibonacci(Number - 2));
         }
 
 
         public static int FibonacciSchleife(int Number)
         {
-            throw new NotImplementedException();
-            // wenn Übergabe kleiner als 3
-            //  rückgabe 1
-            // ende wenn
 
-            // zählen von 3 bis zur angeforderten nummer
-            //    ergebnis ist vorgänger + vorvorgänger
-            //    vorvorgänger mit vorgäner ersetzen
-            //    vorgänger mit ergebnis ersetzen
-            // ende zählen
+            if (Number < 3) // wenn Übergabe kleiner als 3
+            {
+                return 1;//  rückgabe 1
+            }// ende wenn
 
-            // ergebnis zurückgeben
+            int prepre = 1;
+            int pre = 1;
+            int result = 0;
+            for (int counter = 2; counter < Number; counter++) // zählen von 3 bis zur angeforderten nummer
+            {
+                SlowDown();
+                result = pre + prepre;//    ergebnis ist vorgänger + vorvorgänger
+                prepre = pre;//    vorvorgänger mit vorgäner ersetzen
+                pre = result; //    vorgänger mit ergebnis ersetzen
+            }// ende zählen
+
+            return result;// ergebnis zurückgeben
         }
         // Die Fibonacci Funktion umschreiben das sie anstelle einer Rekursion (selbstaufruf) eine schleife verwendet
 
@@ -101,12 +108,21 @@ namespace DatentypenKontrollstrukturen
         // Bonus : Die Rekursive Fibonacci Funktion umschreiben das sie zwischenergebnisse speichern kann
         public static int FibonacciMemoization(int Number, int[] precalculated = null )
         {
+            SlowDown();
             if (Number < 3) return 1;
             if (precalculated is null) precalculated = new int[Number+1];
-            if (precalculated[Number] != 0) return precalculated[Number];
-            return (Number < 3 ? 1 : FibonacciMemoization(Number - 1, precalculated) + FibonacciMemoization(Number - 2, precalculated));
+            if (precalculated[Number] == 0)
+                precalculated[Number] = FibonacciMemoization(Number - 1, precalculated) + FibonacciMemoization(Number - 2, precalculated);
+
+            return precalculated[Number];
         }
 
         // fibonacci(8)
+        static void SlowDown()
+        {
+            Console.Write("#");
+            Thread.Sleep(50);
+        }
+
     }
 }

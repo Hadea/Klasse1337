@@ -6,7 +6,13 @@
         {
             //Enums.DoSomething();
             //Funktionen.Rekursiv(1);
-            System.Console.WriteLine(  Funktionen.Fibonacci(8)); 
+            System.Console.WriteLine("Startklar?");
+            System.Console.ReadLine();
+            System.Console.WriteLine(  Funktionen.Fibonacci(10));
+            System.Console.WriteLine();
+            System.Console.WriteLine(  Funktionen.FibonacciMemoization(10));
+            System.Console.WriteLine();
+            System.Console.WriteLine(  Funktionen.FibonacciMemoization(10)); 
             
         }
     }
