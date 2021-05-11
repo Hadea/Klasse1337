@@ -6,11 +6,17 @@ namespace StartupCounter
 {
     class Program
     {
-        private const string fileName = "counter.bin";
+        private const string fileName = @"counter.bin";
+
+        //TODO: XML-Serialisierung
+        //TODO: WriteAllText
+        //TODO: WriteAllBytes
+        //TODO: BinaryReader/Writer (morgen erst im Unterricht)
+
+
         static void Main(string[] args)
         {
             // Aufgabe: Laden einer datei mit einer Zahl, diese um 1 erhöhen und wieder in die datei schreiben
-            // xml-Serializer für die Datenklasse starten
             byte sessionCount = LoadData();
             sessionCount++; // zähler um 1 erhöhen
             SaveData(sessionCount);
@@ -46,6 +52,7 @@ namespace StartupCounter
                 return dataFormatted.Counter;
             }//      Datei schliessen
         }
+
     }
 
     [Serializable]
