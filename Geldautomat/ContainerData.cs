@@ -20,7 +20,12 @@ namespace Geldautomat
                 XmlSerializer xml = new(typeof(ContainerData));
                 using (StreamReader reader = new(FileName))
                 {
-                    ContainerList = ((ContainerData)xml.Deserialize(reader)).ContainerList;
+
+                    object data = xml.Deserialize(reader);
+                    ContainerData dataAsContainer = data as ContainerData;
+                    ContainerList = dataAsContainer.ContainerList;
+
+                    //ContainerList = ((ContainerData)xml.Deserialize(reader)).ContainerList;
                 }
             }
             else // datei nicht vorhanden
