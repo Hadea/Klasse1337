@@ -16,6 +16,7 @@
               */
 
             Dateien.WriteXML();
+            Dateien.WriteBinary();
 
         }
     }

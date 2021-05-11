@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
@@ -94,15 +95,54 @@ namespace DatentypenKontrollstrukturen
             //TODO: binärserialisierung
             //TODO: Handarbeit
         }
+
+        public static void WriteBinary()
+        {
+            // der alte weg welcher nicht mehr verwendet werden sollte, aber noch in alten codebases anzutreffen ist
+            // wenn möglich durch besseres ersetzen
+
+            DataFormat data = new DataFormat();
+            data.Number = 99;
+            data.Text = "Blub";
+            data.IntList.Add(5);
+            data.IntList.Add(3);
+            data.IntList.Add(7);
+            data.AuchVersteckt = true;
+
+            string FileName = "data.bin";
+
+            BinaryFormatter formatter = new();
+            using (Stream file = new FileStream(FileName, FileMode.Create,FileAccess.Write))
+            {
+#pragma warning disable SYSLIB0011 // Type or member is obsolete
+                formatter.Serialize(file, data);
+#pragma warning restore SYSLIB0011 // Type or member is obsolete
+            }
+
+            DataFormat dataFromDisk;
+
+            using (Stream file = new FileStream(FileName, FileMode.Open, FileAccess.Read))
+            {
+#pragma warning disable SYSLIB0011 // Type or member is obsolete
+                object deserializedData = formatter.Deserialize(file);
+#pragma warning restore SYSLIB0011 // Type or member is obsolete
+                dataFromDisk = (DataFormat)deserializedData;
+            }
+
+        }
     }
 
-    public class DataFormat
+    [Serializable] //Binary formatter benötigt das
+    public class DataFormat // XMLFormatter benötigt das public vor der Klasse
     {
         public int Number;
         public string Text;
-        private bool Versteckt = true; // wird nicht serialisiert da die Serializer-Klasse private nicht lesen darf
+        private bool Versteckt = true; 
+        // wird nicht über XML serialisiert da die Serializer-Klasse private nicht lesen darf
+        // der BinaryFormatter serialisiert auch Private variablen!
 
-        [XmlIgnore] // schaltet die serialisierung für die nächste variable ab
+        [XmlIgnore] // schaltet die serialisierung für die nächste variable ab (nur XmlFormatter)
+        [NonSerialized] // schaltet für den BinaryFormatter das serialisieren ab
         public bool AuchVersteckt;
 
         public List<int> IntList = new();
