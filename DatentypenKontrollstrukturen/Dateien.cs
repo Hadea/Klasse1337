@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Threading.Tasks;
 using System.Xml.Serialization;
 
 namespace DatentypenKontrollstrukturen
@@ -73,6 +70,11 @@ namespace DatentypenKontrollstrukturen
             data.IntList.Add(5);
             data.IntList.Add(7);
             data.IntList.Add(2);
+            data.Autos[0].Name = "Ferrari";
+            data.Autos[1].Name = "Delorean";
+            data.Autos[2].Name = "Maserati";
+            data.Autos[3].Name = "Type X";
+
 
 
             XmlSerializer xml = new(typeof(DataFormat));
@@ -130,12 +132,30 @@ namespace DatentypenKontrollstrukturen
             }
 
         }
+
+        public static void WriteBinaryWriter()
+        {
+            // schreibt die daten hintereinander (wie eine Tonbandkasette) in die datei
+            using (BinaryWriter writer = new(File.Open("ownDataFormat.wtf", FileMode.Create)))
+            {
+                writer.Write('w'); // schreibt ein byte und schiebt den lese/schreibkopf 1 byte nach vorn
+                writer.Write('t');
+                writer.Write('f');
+                writer.Write(123456789); // schreibt einen integer (4 byte) und setzt auch den lesekopf 4 byte weiter
+                writer.Write("Hallo");
+                writer.Write("Welt!");
+                writer.Seek(0, SeekOrigin.Begin); // verschiebt den lesekopf an eine neue position, entweder relativ zur aktuellen position, zum anfang oder zum ende
+            }
+
+        }
     }
 
     [Serializable] //Binary formatter benötigt das
     public class DataFormat // XMLFormatter benötigt das public vor der Klasse
     {
+        [XmlAttribute]
         public int Number;
+        [XmlAttribute]
         public string Text;
         private bool Versteckt = true; 
         // wird nicht über XML serialisiert da die Serializer-Klasse private nicht lesen darf
@@ -146,7 +166,19 @@ namespace DatentypenKontrollstrukturen
         public bool AuchVersteckt;
 
         public List<int> IntList = new();
+
+       
+        public Automobil[] Autos = new Automobil[4];
     }
+
+    public struct Automobil
+    {
+        [XmlAttribute]
+        public int ZylinderAnzahl;
+        [XmlAttribute]
+        public string Name;
+    }
+
 
 
 }

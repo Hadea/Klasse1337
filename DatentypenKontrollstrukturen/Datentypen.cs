@@ -35,7 +35,7 @@
         // Bit
         bool EinzelnesBit; // nur true oder false
 
-
+        //todo: cast und convert und parse und tostring
 
 
     }

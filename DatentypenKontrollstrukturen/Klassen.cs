@@ -18,19 +18,19 @@ namespace DatentypenKontrollstrukturen
             Ferrari f = new();
             f.OpenDoor();
 
-            List<Auto> Stau = new();
+            List<IOpenable> Stau = new();
             Stau.Add(d);
             Stau.Add(f);
 
             Console.WriteLine("Liste");
-            foreach (Auto item in Stau)
+            foreach (IOpenable item in Stau)
             {
                 item.OpenDoor();
             }
         }
     }
 
-    class Auto
+    class Auto : IOpenable
     {
         public Auto()
         {
@@ -69,6 +69,11 @@ namespace DatentypenKontrollstrukturen
             SchlüsselDrehen(); // die geerbte protected aus Auto
         }
     }
-    //TODO: partial class, sealed
+    //TODO: partial class, sealed, abstract 
+
+    interface IOpenable
+    {
+        void OpenDoor();
+    }
 
 }

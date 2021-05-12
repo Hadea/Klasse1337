@@ -15,9 +15,9 @@
                         System.Console.WriteLine(  Funktionen.FibonacciMemoization(10)); 
               */
 
-            Dateien.WriteXML();
-            Dateien.WriteBinary();
-
+            //Dateien.WriteXML();
+            //Dateien.WriteBinary();
+            Dateien.WriteBinaryWriter();
         }
     }
 }
