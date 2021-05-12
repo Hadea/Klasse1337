@@ -147,6 +147,17 @@ namespace DatentypenKontrollstrukturen
                 writer.Seek(0, SeekOrigin.Begin); // verschiebt den lesekopf an eine neue position, entweder relativ zur aktuellen position, zum anfang oder zum ende
             }
 
+            using (BinaryReader reader = new(File.Open("ownDataFormat.wtf", FileMode.Open)))
+            {
+                Console.WriteLine(reader.ReadChar());// w
+                Console.WriteLine(reader.ReadChar());// t
+                Console.WriteLine(reader.ReadChar());// f
+                Console.WriteLine(reader.ReadInt32());// 123456789
+                Console.WriteLine(reader.ReadString()); // Hallo
+                Console.WriteLine(reader.ReadString()); // Welt!
+            }
+
+
         }
     }
 
