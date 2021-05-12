@@ -18,6 +18,9 @@ namespace Sort
             byte[] ArrayToSortC = new byte[ArrayToSortA.Length];
             ArrayToSortA.CopyTo(ArrayToSortC, 0);
 
+            byte[] ArrayToSortD = new byte[ArrayToSortA.Length];
+            ArrayToSortA.CopyTo(ArrayToSortD, 0);
+
 
             // ausgabe des Arrays
             if (ArrayToSortA.Length < 31)
@@ -45,8 +48,16 @@ namespace Sort
             DateTime endTimeMerge = DateTime.Now;
 
             uint checkSumMergeSort = 0;
-            foreach (var item in ArrayToSortA)
+            foreach (var item in ArrayToSortB)
                 checkSumMergeSort += item; // entspricht sum = sum + item
+
+            DateTime startTimeMergeThreaded = DateTime.Now;
+            MergeSortThreaded(ArrayToSortD);
+            DateTime endTimeMergeThreaded = DateTime.Now;
+
+            uint checkSumMergeSortThreaded = 0;
+            foreach (var item in ArrayToSortD)
+                checkSumMergeSortThreaded += item; // entspricht sum = sum + item
 
             DateTime startTimeBubble = DateTime.Now;
             BubbleSort(ArrayToSortC);
@@ -55,16 +66,18 @@ namespace Sort
             uint checkSumBubbleSort = 0;
             foreach (var item in ArrayToSortA)
                 checkSumBubbleSort += item; // entspricht sum = sum + item
-            Console.WriteLine(@"Algorythmus   | Dauer  | Summe | Sortierung");
-            Console.WriteLine($"Selectionsort | { (endTimeSelection - startTimeSelection).TotalSeconds.ToString("N4") } | { (checkSumOriginal == checkSumSelectionSort), 5 } | { CheckAscending(ArrayToSortA) }");
-            Console.WriteLine($"Mergesort     | { (endTimeMerge - startTimeMerge).TotalSeconds.ToString("N4") } | { (checkSumOriginal == checkSumMergeSort), 5} | { CheckAscending(ArrayToSortB)}");
-            Console.WriteLine($"Bubblesort    | { (endTimeBubble - startTimeBubble).TotalSeconds.ToString("N4") } | { (checkSumOriginal == checkSumBubbleSort),5 } | { CheckAscending(ArrayToSortC)}");
+            Console.WriteLine(@"Algorythmus      | Dauer  | Summe | Sortierung");
+            Console.WriteLine($"Selectionsort    | { (endTimeSelection - startTimeSelection).TotalSeconds.ToString("N4") } | { (checkSumOriginal == checkSumSelectionSort), 5 } | { CheckAscending(ArrayToSortA) }");
+            Console.WriteLine($"Mergesort        | { (endTimeMerge - startTimeMerge).TotalSeconds.ToString("N4") } | { (checkSumOriginal == checkSumMergeSort), 5} | { CheckAscending(ArrayToSortB)}");
+            Console.WriteLine($"Bubblesort       | { (endTimeBubble - startTimeBubble).TotalSeconds.ToString("N4") } | { (checkSumOriginal == checkSumBubbleSort),5 } | { CheckAscending(ArrayToSortC)}");
+            Console.WriteLine($"Mergesort Thread | { (endTimeMergeThreaded - startTimeMergeThreaded).TotalSeconds.ToString("N4") } | { (checkSumOriginal == checkSumMergeSortThreaded), 5} | { CheckAscending(ArrayToSortD)}");
 
             // sortiertes array ausgeben
             if (ArrayToSortA.Length < 31)
                 foreach (var item in ArrayToSortA)
                     Console.Write(item + " ");
         }
+
 
         private static bool CheckAscending(byte[] ArrayToSortA)
         {
@@ -118,7 +131,6 @@ namespace Sort
                 leftPointer++;
                 originalPointer++;
             }
-
 
             // reste von rechts anfügen
             while (rightPointer < rightSide.Length)
