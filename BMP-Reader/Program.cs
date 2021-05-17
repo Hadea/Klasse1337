@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 
 namespace BMP_Reader
 {
@@ -6,15 +7,32 @@ namespace BMP_Reader
     {
         static void Main(string[] args)
         {
-            // BMP-Datei mit dem BinaryReader lesen und Dateigrösse auf die Konsole ausgeben
+            string filename;
+            if (args.Length == 1)
+            {
+                filename = args[0];
+            // Bonus5: Kommandozeilen-Parameter auswerten um dateinamen zu empfangen
+            }
+            else
+            {
+                filename = "red.bmp";
+            }
 
-            // Bonus1: Auflösung der Datei ausgeben
-            // Bonus2: Bit pro pixel ausgeben
+            if (File.Exists(filename))
+            {
+            BMPImage image = new BMPImage(filename);
+            Console.WriteLine(image);
 
-            // Bonus3: Klasse(n) schreiben welche diese Daten aufnehmen
-            // Bonus4: Klasse(n) schreiben welche .ToString() überschreiben sodass ein Console.Write zum ausgeben genügt
+            }
+            else
+            {
+                Console.WriteLine("Datei nicht gefunden");
+            }
 
+            for (int counter = 0; counter < filename.Length; counter++)
+            {
 
+            }
         }
     }
 }

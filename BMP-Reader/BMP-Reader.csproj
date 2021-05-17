@@ -6,4 +6,10 @@
     <RootNamespace>BMP_Reader</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Update="red.bmp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
