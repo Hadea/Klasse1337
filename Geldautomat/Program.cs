@@ -46,6 +46,7 @@ namespace Geldautomat
                 }
 
                 PrintWithdrawal();
+                Console.ReadLine();
             }
         }
 
@@ -75,24 +76,30 @@ namespace Geldautomat
             string Abhebebetrag = Console.ReadLine();
             List<NoteStack> MoneyStack = logic.Withdraw(uint.Parse(Abhebebetrag));
 
-            foreach (var item in MoneyStack)
+            if (MoneyStack is null)
+                Console.WriteLine("ungültiger Betrag");
+            else
             {
-                string Currency = (item.NoteType) switch
-                {
-                    BankNote.Euro10 => "10 Euro Scheine",
-                    BankNote.Euro100 => "100 Euro Scheine",
-                    BankNote.Euro20 => "20 Euro Scheine",
-                    BankNote.Euro200 => "200 Euro Scheine",
-                    BankNote.Euro5 => "5 Euro Scheine",
-                    BankNote.Euro50 => "50 Euro Scheine",
-                    _ => throw new InvalidDataException()
-                };
 
-                Console.WriteLine($"> {item.Amount, 3} x {Currency}");
+                foreach (var item in MoneyStack)
+                {
+                    string Currency = (item.NoteType) switch
+                    {
+                        BankNote.Euro10 => "10 Euro Scheine",
+                        BankNote.Euro100 => "100 Euro Scheine",
+                        BankNote.Euro20 => "20 Euro Scheine",
+                        BankNote.Euro200 => "200 Euro Scheine",
+                        BankNote.Euro5 => "5 Euro Scheine",
+                        BankNote.Euro50 => "50 Euro Scheine",
+                        _ => throw new InvalidDataException()
+                    };
+
+                    Console.WriteLine($"> {item.Amount,3} x {Currency}");
+                }
+                Console.WriteLine("Geld abgebucht");
             }
 
             Console.WriteLine("Ihre Karte wird ausgeworfen");
-            Console.WriteLine("Geld abgebucht");
         }
 
         private static void PrintGreeting()

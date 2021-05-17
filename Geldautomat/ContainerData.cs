@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
 
 namespace Geldautomat
 {
     class ContainerData
     {
         List<Container> ContainerList = new();
+        public BankNote SmallestNote
+        {
+            get { return ContainerList[^1].ContentType; }
+        }
+
 
         public const string FileName = "ATMData.bin";
         public void Load()
@@ -21,7 +22,7 @@ namespace Geldautomat
                 {
                     // check magic
                     byte[] magic = reader.ReadBytes(3);
-                    if (magic[0] != 'A' || magic[1] != 'T' || magic[2] != 'M' )
+                    if (magic[0] != 'A' || magic[1] != 'T' || magic[2] != 'M')
                     {
                         throw new FileLoadException();
                     }
@@ -33,6 +34,7 @@ namespace Geldautomat
                         Container newContainer;
                         newContainer.Current = reader.ReadUInt16();
                         newContainer.ContentType = (BankNote)reader.ReadByte();
+                        ContainerList.Add(newContainer);
                     }
                 }
 
@@ -43,6 +45,50 @@ namespace Geldautomat
                 ContainerList.Add(new Container { ContentType = BankNote.Euro20, Current = 200 });
                 ContainerList.Add(new Container { ContentType = BankNote.Euro50, Current = 200 });
             }
+
+            ContainerList.Sort(containerDescComparer);
+
+        }
+
+        private int containerDescComparer(Container x, Container y)
+        {
+            return (x.ContentType < y.ContentType ? 1 : -1);
+        }
+
+        public List<NoteStack> Withdraw(uint abhebebetrag)
+        {
+            List<NoteStack> result = new();
+
+            for (int containerID = 0; containerID < ContainerList.Count && abhebebetrag > 0; containerID++)
+            {
+                uint noteNeeded = abhebebetrag / (uint)ContainerList[containerID].ContentType;
+                if (noteNeeded == 0) continue;
+                Container currentContainer = ContainerList[containerID];
+                ushort noteWithdraw = Math.Min((ushort)noteNeeded, currentContainer.Current);
+                currentContainer.Current -= noteWithdraw;
+                ContainerList[containerID] = currentContainer;
+                abhebebetrag -= noteWithdraw * (uint)ContainerList[containerID].ContentType;
+                NoteStack stack;
+                stack.NoteType = ContainerList[containerID].ContentType;
+                stack.Amount = noteWithdraw;
+                result.Add(stack);
+            }
+
+            return result;
+
+            // container durchgehen von grösstem zu kleinstem inhalt
+            //      scheinanzahl  = abhebebetrag modulo containerinhalt
+            //      Minimum zwischen scheinanzahl und kontainervorrat auswählen
+            //      scheinanzahl und wert in Liste eintragen
+            //      scheinwert mal gewählte scheine von abhebebetrag abziehen
+            // ende container durchgehen
+
+            // wenn abhebebetrag 0 ist
+            //      scheine aus containern nehmen
+            //      scheinliste zurückgeben
+            // andernfalls
+            //      Fehler ausgeben das die scheine nicht passen
+            // ende wenn
 
         }
 

@@ -62,22 +62,15 @@ namespace Geldautomat
 
         public List<NoteStack> Withdraw(uint abhebebetrag)
         {
-            
-            // container durchgehen von grösstem zu kleinstem inhalt
-            //      scheinanzahl  = abhebebetrag modulo containerinhalt
-            //      Minimum zwischen scheinanzahl und kontainervorrat auswählen
-            //      scheinanzahl und wert in Liste eintragen
-            //      scheinwert mal gewählte scheine von abhebebetrag abziehen
-            // ende container durchgehen
+            if (abhebebetrag % (uint)container.SmallestNote != 0) return null;
 
-            // wenn abhebebetrag 0 ist
-            //      scheine aus containern nehmen
-            //      scheinliste zurückgeben
+            // prüfen ob der kunde genügend geld auf dem konto hat
+            // wenn ja
+                return container.Withdraw(abhebebetrag);
             // andernfalls
-            //      Fehler ausgeben das die scheine nicht passen
+            //      abbruch
             // ende wenn
 
-            throw new NotImplementedException();
         }
     }
 }
