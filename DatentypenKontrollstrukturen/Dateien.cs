@@ -155,9 +155,9 @@ namespace DatentypenKontrollstrukturen
                 Console.WriteLine(reader.ReadInt32());// 123456789
                 Console.WriteLine(reader.ReadString()); // Hallo
                 Console.WriteLine(reader.ReadString()); // Welt!
+                reader.BaseStream.Seek(2, SeekOrigin.Begin);
+                Console.WriteLine(reader.ReadChar());// f
             }
-
-
         }
     }
 
