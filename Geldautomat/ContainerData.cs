@@ -12,21 +12,30 @@ namespace Geldautomat
     {
         List<Container> ContainerList = new();
 
-        public const string FileName = "Data.xml";
+        public const string FileName = "ATMData.bin";
         public void Load()
         {
             if (File.Exists(FileName))
             {
-                XmlSerializer xml = new(typeof(ContainerData));
-                using (StreamReader reader = new(FileName))
+                using (BinaryReader reader = new(File.OpenRead(FileName)))
                 {
+                    // check magic
+                    byte[] magic = reader.ReadBytes(3);
+                    if (magic[0] != 'A' || magic[1] != 'T' || magic[2] != 'M' )
+                    {
+                        throw new FileLoadException();
+                    }
 
-                    object data = xml.Deserialize(reader);
-                    ContainerData dataAsContainer = data as ContainerData;
-                    ContainerList = dataAsContainer.ContainerList;
-
-                    //ContainerList = ((ContainerData)xml.Deserialize(reader)).ContainerList;
+                    ContainerList.Clear();
+                    byte containerCount = reader.ReadByte();
+                    for (int counter = 0; counter < containerCount; counter++)
+                    {
+                        Container newContainer;
+                        newContainer.Current = reader.ReadUInt16();
+                        newContainer.ContentType = (BankNote)reader.ReadByte();
+                    }
                 }
+
             }
             else // datei nicht vorhanden
             {
@@ -39,11 +48,21 @@ namespace Geldautomat
 
         public void Save()
         {
-            XmlSerializer xml = new(typeof(ContainerData));
-
-            using (StreamWriter writer = new(FileName))
+            using (BinaryWriter writer = new(File.OpenWrite(FileName)))
             {
-                xml.Serialize(writer, this);
+                // magic schreiben
+                writer.Write('A');
+                writer.Write('T');
+                writer.Write('M');
+
+                // byte mit containeranzahl
+                writer.Write((byte)ContainerList.Count);
+
+                foreach (var item in ContainerList)// für jedes element in der Containerliste
+                {
+                    writer.Write(item.Current); //      short schreiben mit inhaltsAnzahl
+                    writer.Write((byte)item.ContentType); //      byte schreiben mit inhaltsTyp
+                }// ende für
             }
         }
     }
