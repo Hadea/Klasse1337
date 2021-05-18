@@ -17,7 +17,10 @@
 
             //Dateien.WriteXML();
             //Dateien.WriteBinary();
-            Dateien.WriteBinaryWriter();
+            //Dateien.WriteBinaryWriter();
+
+            //Dateien.LoadAndSaveHalloWelt();
+            ExceptionHandling.DoSomething();
         }
     }
 }

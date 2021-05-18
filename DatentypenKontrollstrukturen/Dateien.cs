@@ -57,7 +57,7 @@ namespace DatentypenKontrollstrukturen
 
         }
 
-        public  static void WriteXML()
+        public static void WriteXML()
         {
             /////////////////////////////////////////////
             // Dateien schreiben
@@ -114,7 +114,7 @@ namespace DatentypenKontrollstrukturen
             string FileName = "data.bin";
 
             BinaryFormatter formatter = new();
-            using (Stream file = new FileStream(FileName, FileMode.Create,FileAccess.Write))
+            using (Stream file = new FileStream(FileName, FileMode.Create, FileAccess.Write))
             {
 #pragma warning disable SYSLIB0011 // Type or member is obsolete
                 formatter.Serialize(file, data);
@@ -159,6 +159,34 @@ namespace DatentypenKontrollstrukturen
                 Console.WriteLine(reader.ReadChar());// f
             }
         }
+
+        public static void LoadAndSaveHalloWelt()
+        {
+            FileStream file = File.OpenWrite("HalloWelt.txt");
+            BinaryWriter writer = new(file);
+            //writer.Write('H');
+            //writer.Write('a');
+            //writer.Write('l');
+            //writer.Write('l');
+            //writer.Write('o');
+            string content = "Lorem ipsum dolor sit amet, consetetur sadipscing";
+
+            writer.Write(content);
+            writer.Dispose();
+            file.Close();
+
+            ////////////////////////////////////
+
+            if (File.Exists("HalloWelt.txt"))
+            {
+                using (BinaryReader reader = new(File.OpenRead("HalloWelt.txt")))
+                {
+                    content = reader.ReadString();
+                    Console.WriteLine(content);
+                }// ruft automatisch reader.Dispose() auf
+            }
+
+        }
     }
 
     [Serializable] //Binary formatter benötigt das
@@ -168,7 +196,7 @@ namespace DatentypenKontrollstrukturen
         public int Number;
         [XmlAttribute]
         public string Text;
-        private bool Versteckt = true; 
+        private bool Versteckt = true;
         // wird nicht über XML serialisiert da die Serializer-Klasse private nicht lesen darf
         // der BinaryFormatter serialisiert auch Private variablen!
 
@@ -178,7 +206,7 @@ namespace DatentypenKontrollstrukturen
 
         public List<int> IntList = new();
 
-       
+
         public Automobil[] Autos = new Automobil[4];
     }
 
