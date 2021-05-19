@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using MySql.Data.MySqlClient;
 
 namespace Geldautomat
 {
@@ -11,30 +12,37 @@ namespace Geldautomat
         {
             get { return ContainerList[^1].ContentType; }
         }
+        MySqlConnectionStringBuilder builder = new();
 
+        public ContainerData()
+        {
+            builder.Database = "ATM";
+            builder.UserID = "ATMUser";
+            builder.Password = "ATMPass";
+            builder.Server = "192.168.2.2";
+        }
 
-        public const string FileName = "ATMData.bin";
+        //public const string FileName = "ATMData.bin";
         public void Load()
         {
             try
             {
-                using (BinaryReader reader = new(File.OpenRead(FileName)))
+                using (MySqlConnection connection = new(builder.ToString()))
                 {
-                    // check magic
-                    byte[] magic = reader.ReadBytes(3);
-                    if (magic[0] != 'A' || magic[1] != 'T' || magic[2] != 'M')
-                    {
-                        throw new FileLoadException();
-                    }
-
                     ContainerList.Clear();
-                    byte containerCount = reader.ReadByte();
-                    for (int counter = 0; counter < containerCount; counter++)
+                    connection.Open();
+                    MySqlCommand command = connection.CreateCommand();
+                    command.CommandText = "select BankNoteID, CurrentCount from Containers";
+
+                    using (var reader = command.ExecuteReader())
                     {
-                        Container newContainer;
-                        newContainer.Current = reader.ReadUInt16();
-                        newContainer.ContentType = (BankNote)reader.ReadByte();
-                        ContainerList.Add(newContainer);
+                        while (reader.Read())
+                        {
+                            Container newContainer;
+                            newContainer.ContentType = (BankNote)reader.GetByte(0);
+                            newContainer.Current = reader.GetUInt16(1);
+                            ContainerList.Add(newContainer);
+                        }
                     }
                 }
             }
@@ -110,21 +118,22 @@ namespace Geldautomat
         {
             try
             {
-                using (BinaryWriter writer = new(File.OpenWrite(FileName)))
+                using (MySqlConnection connection = new(builder.ToString()))
                 {
-                    // magic schreiben
-                    writer.Write('A');
-                    writer.Write('T');
-                    writer.Write('M');
+                    connection.Open();
+                    MySqlCommand command = connection.CreateCommand();
+                    command.CommandText = "truncate Containers";
+                    command.ExecuteNonQuery();
 
-                    // byte mit containeranzahl
-                    writer.Write((byte)ContainerList.Count);
+                    command.CommandText = "insert into Containers (BankNoteID, Currentcount) values ";
 
-                    foreach (var item in ContainerList)// für jedes element in der Containerliste
+                    foreach (var item in ContainerList)
                     {
-                        writer.Write(item.Current); //      short schreiben mit inhaltsAnzahl
-                        writer.Write((byte)item.ContentType); //      byte schreiben mit inhaltsTyp
-                    }// ende für
+                        command.CommandText += $"({(byte)item.ContentType}, {item.Current}),";
+                    }
+
+                    command.CommandText = command.CommandText[..^1];
+                    command.ExecuteNonQuery();
                 }
             }
             catch (UnauthorizedAccessException)
