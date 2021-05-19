@@ -18,7 +18,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sort", "Sort\Sort.csproj", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StartupCounter", "StartupCounter\StartupCounter.csproj", "{F1ECA5F2-FCF4-4C23-9DBE-F084BD99D859}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BMP-Reader", "BMP-Reader\BMP-Reader.csproj", "{AE0F0FEF-F7F6-4CA3-9316-CF317926BFB6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BMP-Reader", "BMP-Reader\BMP-Reader.csproj", "{AE0F0FEF-F7F6-4CA3-9316-CF317926BFB6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteDemo", "SQLiteDemo\SQLiteDemo.csproj", "{9EB0708F-DCDE-47D1-86DA-9D9EDFE20E0B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +52,10 @@ Global
 		{AE0F0FEF-F7F6-4CA3-9316-CF317926BFB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE0F0FEF-F7F6-4CA3-9316-CF317926BFB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE0F0FEF-F7F6-4CA3-9316-CF317926BFB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EB0708F-DCDE-47D1-86DA-9D9EDFE20E0B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EB0708F-DCDE-47D1-86DA-9D9EDFE20E0B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EB0708F-DCDE-47D1-86DA-9D9EDFE20E0B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EB0708F-DCDE-47D1-86DA-9D9EDFE20E0B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
