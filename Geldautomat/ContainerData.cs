@@ -16,7 +16,7 @@ namespace Geldautomat
         public const string FileName = "ATMData.bin";
         public void Load()
         {
-            if (File.Exists(FileName))
+            try
             {
                 using (BinaryReader reader = new(File.OpenRead(FileName)))
                 {
@@ -37,17 +37,31 @@ namespace Geldautomat
                         ContainerList.Add(newContainer);
                     }
                 }
-
             }
-            else // datei nicht vorhanden
+            catch (FileNotFoundException) // datei nicht vorhanden
             {
-                ContainerList.Add(new Container { ContentType = BankNote.Euro10, Current = 200 });
-                ContainerList.Add(new Container { ContentType = BankNote.Euro20, Current = 200 });
-                ContainerList.Add(new Container { ContentType = BankNote.Euro50, Current = 200 });
+                Console.WriteLine("Datei nicht gefunden, lade Standardwerte!");
+                LoadDefaultContainer();
             }
-
+            catch (DirectoryNotFoundException) // verzeichnis nicht vorhanden
+            {
+                Console.WriteLine("Verzeichnis nicht gefunden, lade Standardwerte!");
+                LoadDefaultContainer();
+            }
+            catch (UnauthorizedAccessException) // zugriff verweigert
+            {
+                Console.WriteLine("Nicht genügend Rechte für Dateizugriff, lade Standardwerte!");
+                LoadDefaultContainer();
+            }
             ContainerList.Sort(containerDescComparer);
 
+        }
+
+        private void LoadDefaultContainer()
+        {
+            ContainerList.Add(new Container { ContentType = BankNote.Euro10, Current = 200 });
+            ContainerList.Add(new Container { ContentType = BankNote.Euro20, Current = 200 });
+            ContainerList.Add(new Container { ContentType = BankNote.Euro50, Current = 200 });
         }
 
         private int containerDescComparer(Container x, Container y)
@@ -94,21 +108,32 @@ namespace Geldautomat
 
         public void Save()
         {
-            using (BinaryWriter writer = new(File.OpenWrite(FileName)))
+            try
             {
-                // magic schreiben
-                writer.Write('A');
-                writer.Write('T');
-                writer.Write('M');
-
-                // byte mit containeranzahl
-                writer.Write((byte)ContainerList.Count);
-
-                foreach (var item in ContainerList)// für jedes element in der Containerliste
+                using (BinaryWriter writer = new(File.OpenWrite(FileName)))
                 {
-                    writer.Write(item.Current); //      short schreiben mit inhaltsAnzahl
-                    writer.Write((byte)item.ContentType); //      byte schreiben mit inhaltsTyp
-                }// ende für
+                    // magic schreiben
+                    writer.Write('A');
+                    writer.Write('T');
+                    writer.Write('M');
+
+                    // byte mit containeranzahl
+                    writer.Write((byte)ContainerList.Count);
+
+                    foreach (var item in ContainerList)// für jedes element in der Containerliste
+                    {
+                        writer.Write(item.Current); //      short schreiben mit inhaltsAnzahl
+                        writer.Write((byte)item.ContentType); //      byte schreiben mit inhaltsTyp
+                    }// ende für
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                Console.WriteLine("Datei kann nicht gespeichert werden, da Rechte fehlen.");
+            }
+            catch (DirectoryNotFoundException)
+            {
+                Console.WriteLine("Verzeichnis für Datei wurde nicht gefunden. Daten nicht gespeichert!");
             }
         }
     }
