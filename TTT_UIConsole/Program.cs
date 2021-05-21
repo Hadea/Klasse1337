@@ -1,4 +1,5 @@
 ﻿using System;
+using TTT_Logic;
 
 namespace TTT_UIConsole
 {
@@ -6,7 +7,12 @@ namespace TTT_UIConsole
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Logic l = new();
+
+            var board = l.GetGameBoard();
+
+            if (board[0,0] == Board.O)
+                Console.Write("O wurde an den koordinaten 0 0 gefunden");
         }
     }
 }
