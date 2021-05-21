@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.SQLite;
+using System.IO;
 using MySql.Data.MySqlClient;
 
 namespace SQLiteDemo
@@ -60,14 +61,12 @@ namespace SQLiteDemo
                     {
                         while (reader.Read()) // zeilenweise durch das ergebnis gehen
                         {
+
+                            Console.Write($" {reader.GetByte(1), 3} {reader.GetByte(2),3} {reader.GetByte(3),3} ");
                             if (reader.IsDBNull(0))
                                 Console.WriteLine("Kein Name");
                             else
-                                Console.Write(reader.GetString(0)); // varchar
-
-                            Console.Write(reader.GetByte(1)); // tinyint
-                            Console.Write(reader.GetByte(2)); // tinyint
-                            Console.Write(reader.GetByte(3)); //tinyint
+                                Console.WriteLine(reader.GetString(0)); // varchar
                         }
                     }
                     Console.ReadLine();
@@ -81,27 +80,16 @@ namespace SQLiteDemo
 
         private static void RecreateDatabase(SQLiteConnectionStringBuilder stringBuilder)
         {
+            stringBuilder.FailIfMissing = false;
             using (SQLiteConnection connection = new(stringBuilder.ToString()))
             {
                 connection.Open();
                 var command = connection.CreateCommand();
 
-                command.CommandText = "create table Recipies ...";
-                command.ExecuteNonQuery();
-
-                command.CommandText = "create table Container ...";
-                command.ExecuteNonQuery();
-
-                command.CommandText = "insert into Recipies (Name, WaterReq, CoffeeReq) values (@alpha, @beta, @gamma)";
-                command.Parameters.AddWithValue("@alpha", "Schwarzer Kaffee");
-                command.Parameters.AddWithValue("@beta", 20);
-                command.Parameters.AddWithValue("@gamma", 5);
-                int rowsAffected = command.ExecuteNonQuery();
-                Console.WriteLine(rowsAffected);
-
-                command.CommandText = "insert into Container ...";
+                command.CommandText = File.ReadAllText("Recipies.sql");
                 command.ExecuteNonQuery();
             }
+            stringBuilder.FailIfMissing = true;
         }
     }
 }
