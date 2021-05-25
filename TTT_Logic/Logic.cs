@@ -9,6 +9,12 @@ namespace TTT_Logic
         private bool mGameRunning = true;
         private byte mTurnCounter = 0;
 
+        public Logic()
+        {
+            Random rndGen = new();
+            mCurrentPlayer = rndGen.Next() % 2 == 1;
+        }
+
         public Board[,] GetGameBoard()
         {
             return mGameBoard;
@@ -20,7 +26,6 @@ namespace TTT_Logic
             if (x < 0 || y < 0) return TurnResult.Invalid;
             if (mGameBoard[y, x] != Board.Empty) return TurnResult.Invalid;
             if (!mGameRunning) return TurnResult.Invalid;
-            if (mTurnCounter > 7) return TurnResult.Draw;
 
             mGameBoard[y, x] = mCurrentPlayer ? Board.O : Board.X;
             mTurnCounter++;
@@ -32,6 +37,7 @@ namespace TTT_Logic
             }
             else
             {
+                if (mTurnCounter > 8) return TurnResult.Draw;
                 mCurrentPlayer = !mCurrentPlayer;
                 return TurnResult.Valid;
             }

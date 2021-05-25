@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TTT_Logic;
 
@@ -173,6 +174,25 @@ namespace TTT_Tests
         }
 
         [TestMethod]
+        public void EndGame_WinOnLastStone()
+        {
+            Logic l = new();
+            //X O X
+            //O X O 
+            //O X X
+
+            Assert.IsTrue(l.PlayerTurn(0, 0) == TurnResult.Valid); // X
+            Assert.IsTrue(l.PlayerTurn(0, 1) == TurnResult.Valid); // O
+            Assert.IsTrue(l.PlayerTurn(0, 2) == TurnResult.Valid); // X
+            Assert.IsTrue(l.PlayerTurn(1, 0) == TurnResult.Valid); // O
+            Assert.IsTrue(l.PlayerTurn(1, 1) == TurnResult.Valid); // X
+            Assert.IsTrue(l.PlayerTurn(2, 0) == TurnResult.Valid); // O 
+            Assert.IsTrue(l.PlayerTurn(2, 1) == TurnResult.Valid); // X
+            Assert.IsTrue(l.PlayerTurn(1, 2) == TurnResult.Valid); // O
+            Assert.IsTrue(l.PlayerTurn(2, 2) != TurnResult.Draw); // X
+        }
+
+        [TestMethod]
         public void EndGame_PlayablaAfterDrawAndReset()
         {
             Logic l = new();
@@ -211,8 +231,7 @@ namespace TTT_Tests
 
             Assert.IsTrue(l.PlayerTurn(2, 2) == TurnResult.Invalid);//Ungültig da das Spiel schon vorbei ist
         }
-        //TODO: win on last stone
-
+        
         [TestMethod]
         public void Player_GetCurrentPlayer()
         {
@@ -255,6 +274,35 @@ namespace TTT_Tests
             l.Reset();
             Assert.IsTrue(l.GetGameBoard()[1, 1] == Board.Empty);
       
+        }
+
+        [TestMethod]
+        public void Player_DifferentBeginners()
+        {
+            List<Logic> logicList = new();
+
+            logicList.Add(new Logic());
+            logicList.Add(new Logic());
+            logicList.Add(new Logic());
+            logicList.Add(new Logic());
+            logicList.Add(new Logic());
+            logicList.Add(new Logic());
+            logicList.Add(new Logic());
+            logicList.Add(new Logic());
+
+            bool firstStarter = logicList[0].GetCurrentPlayer();
+            bool different = false;
+            
+            for (int counter = 1; counter < logicList.Count; counter++)
+            {
+                if (logicList[counter].GetCurrentPlayer() != firstStarter)
+                {
+                    different = true;
+                    break;
+                }
+            }
+
+            Assert.IsTrue(different);
         }
     }
 }
