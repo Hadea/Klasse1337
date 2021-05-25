@@ -10,6 +10,17 @@ namespace TTT_UIConsole
 
         public abstract void Update();
 
-        public abstract void Draw();
+        public virtual void Draw()
+        {
+            foreach (var item in mLabelList)
+            {
+                item.Draw();
+            }
+
+            foreach (var item in mButtonList)
+            {
+                item.Draw();
+            }
+        }
     }
 }
