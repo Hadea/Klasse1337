@@ -8,6 +8,8 @@ namespace DatentypenKontrollstrukturen
         public void Beispiele()
         {
 
+            #region IF-Verzweigung
+
             if (5 < 3) // testet ob eine aussage wahr ist
             {
                 // wenn sie wahr ist
@@ -45,9 +47,12 @@ namespace DatentypenKontrollstrukturen
             ////////////////////////////
             // kurzschreibweise des if "inline if"
             //                 ( test  ?   wenn true   : wenn false         )
-            Console.WriteLine( ( 8 < 7 ? "ist kleiner" : "ist nicht kleiner"));
+            Console.WriteLine((8 < 7 ? "ist kleiner" : "ist nicht kleiner"));
+            #endregion
 
             /////////////////////////////////////////////////////////////
+
+            #region While-Schleife
 
             int counter = 5;
 
@@ -64,28 +69,40 @@ namespace DatentypenKontrollstrukturen
                 counter--;
             } while (counter > 0);
 
+            #endregion
+
             /////////////////////////////////////////////////
+
+            #region For-Schleifen
+
+            // nützlich wenn die anzahl der durchläufe vorher bekannt wird.
+            // erzeugt nur zahlen
 
             for (int i = 0; i < 5; i++)
             {
                 Console.WriteLine("Bin in der For und i ist " + i);
             }
 
-            for(;;) // Zoidberg FOR, variablenerstellung, test und zähleränderung sind optional
+            for (; ; ) // Zoidberg FOR, variablenerstellung, test und zähleränderung sind optional
             {
                 break; // beendet das For weil wir sonst hier eine endlosschleife haben
             }
 
             List<int> ZahlenListe = new();
-
-            foreach (int item in ZahlenListe) // geht einen Container von anfang bis ende durch
+            // geht einen Container von anfang bis ende durch und führt den code für jedes element aus.
+            // funktioniert mit fast allen containern
+            foreach (int item in ZahlenListe)
             {
                 Console.WriteLine(item);
             }
 
+            #endregion
+
             ///////////////////////////////////////////////////////
 
-            switch (counter)// schaut in die Variable und springt in den passenden case
+            #region Switch-Verzweigung
+
+            switch (counter)// schaut in die Variable und springt in den passenden case, führt den code aus und endet
             {
                 default: // wenn kein case trifft wird default gemacht (optional), bei enum besser mitnehmen und mit exception füllen
                     Console.WriteLine("Bin im Default gelandet");
@@ -118,13 +135,17 @@ namespace DatentypenKontrollstrukturen
                     break;
             }
 
-            // kurz
-            ergebnis = (Console.ReadLine()) switch { "123" => true, "321" => false, _=> false };
+            // kurz, wenn ihr euch mit dem switch für einen wert entscheiden wollt
+            ergebnis = (Console.ReadLine()) switch
+            {
+                "123" => true,
+                "321" => false,
+                _ => false
+            };
             // der unterstrich entspricht dem default
+            // komma ist das break
 
-
-
-
+            #endregion
 
         }
 
