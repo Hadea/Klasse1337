@@ -39,19 +39,25 @@ namespace TTT_Logic
 
         private bool mCheckWin()
         {
-            //horizontal
-            if (mGameBoard[0, 0] != Board.Empty && mGameBoard[0, 0] == mGameBoard[0, 1] && mGameBoard[0, 0] == mGameBoard[0, 2]) return true;
+            if (mTurnCounter < 5) return false;
+
+            if (mGameBoard[0, 0] != Board.Empty)
+            {
+                if (mGameBoard[0, 0] == mGameBoard[0, 1] && mGameBoard[0, 0] == mGameBoard[0, 2]) return true;
+                if (mGameBoard[0, 0] == mGameBoard[1, 1] && mGameBoard[0, 0] == mGameBoard[2, 2]) return true;
+                if (mGameBoard[0, 0] == mGameBoard[1, 0] && mGameBoard[0, 0] == mGameBoard[2, 0]) return true;
+            }
+
+            if (mGameBoard[0, 2] != Board.Empty)
+            {
+                if (mGameBoard[0, 2] == mGameBoard[1, 2] && mGameBoard[0, 2] == mGameBoard[2, 2]) return true;
+                if (mGameBoard[0, 2] == mGameBoard[1, 1] && mGameBoard[0, 2] == mGameBoard[2, 0]) return true;
+            }
+
             if (mGameBoard[1, 0] != Board.Empty && mGameBoard[1, 0] == mGameBoard[1, 1] && mGameBoard[1, 0] == mGameBoard[1, 2]) return true;
             if (mGameBoard[2, 0] != Board.Empty && mGameBoard[2, 0] == mGameBoard[2, 1] && mGameBoard[2, 0] == mGameBoard[2, 2]) return true;
 
-            // vertikal
-            if (mGameBoard[0, 0] != Board.Empty && mGameBoard[0, 0] == mGameBoard[1, 0] && mGameBoard[0, 0] == mGameBoard[2, 0]) return true;
             if (mGameBoard[0, 1] != Board.Empty && mGameBoard[0, 1] == mGameBoard[1, 1] && mGameBoard[0, 1] == mGameBoard[2, 1]) return true;
-            if (mGameBoard[0, 2] != Board.Empty && mGameBoard[0, 2] == mGameBoard[1, 2] && mGameBoard[0, 2] == mGameBoard[2, 2]) return true;
-
-            //diagonal
-            if (mGameBoard[0, 0] != Board.Empty && mGameBoard[0, 0] == mGameBoard[1, 1] && mGameBoard[0, 0] == mGameBoard[2, 2]) return true;
-            if (mGameBoard[0, 2] != Board.Empty && mGameBoard[0, 2] == mGameBoard[1, 1] && mGameBoard[0, 2] == mGameBoard[2, 0]) return true;
 
             return false;
         }
