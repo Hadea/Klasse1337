@@ -52,7 +52,7 @@ namespace Sort
                 checkSumMergeSort += item; // entspricht sum = sum + item
 
             DateTime startTimeMergeThreaded = DateTime.Now;
-            MergeSortThreaded(ArrayToSortD);
+            //MergeSortThreaded(ArrayToSortD);
             DateTime endTimeMergeThreaded = DateTime.Now;
 
             uint checkSumMergeSortThreaded = 0;
