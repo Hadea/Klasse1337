@@ -8,29 +8,45 @@ namespace TTT_UIConsole
 {
     class SceneManager
     {
-        private List<Scene> mSceneList;
+        private static SceneManager mInstance;
+        private readonly LinkedList<Scene> mSceneList;
 
-        public void Update()
+        public static SceneManager Instance
         {
-            //TODO implement
-            throw new NotImplementedException();
+            get
+            {
+                if (mInstance is null) // wenn noch kein Objekt erstellt wurde holen wir das nach. "Lazy Initialization"
+                    mInstance = new(); // das einzige new für den SceneManager das es je geben wird
+                return mInstance;
+            }
         }
 
-        public void Draw()
+        private SceneManager()
         {
-            //TODO implement
-            throw new NotImplementedException();
+            // niemand darf einen SceneManager erstellen, darum Private
+            mSceneList = new();
+        }
+
+
+        public void Update() => mSceneList.Last.Value.Update();
+        public void Draw() => mSceneList.Last.Value.Draw();
+
+        public int Count
+        {
+            get
+            {
+                return mSceneList.Count;
+            }
         }
 
         public void AddScene(Scene SceneToAdd)
         {
-            mSceneList.Add(SceneToAdd);
+            mSceneList.AddLast(SceneToAdd);
         }
 
         public void RemoveScene(Scene SceneToRemove)
         {
-            //TODO implement
-            throw new NotImplementedException();
+            mSceneList.Remove(SceneToRemove);
         }
     }
 }

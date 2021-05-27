@@ -4,9 +4,15 @@ namespace TTT_UIConsole
 {
     abstract class Scene
     {
-        private List<Label> mLabelList;
-        private List<Button> mButtonList;
+        protected readonly List<Label> mLabelList;
+        protected readonly List<Button> mButtonList;
+        protected byte mActiveButtonID;
 
+        public Scene()
+        {
+            mLabelList = new();
+            mButtonList = new();
+        }
 
         public abstract void Update();
 

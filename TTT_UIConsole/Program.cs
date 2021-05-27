@@ -5,14 +5,16 @@ namespace TTT_UIConsole
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
-            Logic l = new();
+            Console.CursorVisible = false;
+            SceneManager.Instance.AddScene(new MainMenuScene());
 
-            var board = l.GetGameBoard();
-
-            if (board[0,0] == Board.O)
-                Console.Write("O wurde an den koordinaten 0 0 gefunden");
+            while (SceneManager.Instance.Count > 0)
+            {
+                SceneManager.Instance.Draw();
+                SceneManager.Instance.Update();
+            }
         }
     }
 }

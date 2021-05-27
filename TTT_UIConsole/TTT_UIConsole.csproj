@@ -9,4 +9,10 @@
     <ProjectReference Include="..\TTT_Logic\TTT_Logic.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="logo.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
