@@ -73,6 +73,25 @@ namespace TTT_Tests
         }
 
         [TestMethod]
+        public void FirstMove_ValidOnEveryPosition()
+        {
+            // vorbereitung
+            List<Logic> logicList = new(9); // logik starten
+            for (int counter = 0; counter < 9; counter++)
+                logicList.Add(new Logic());
+
+            // ausführung
+            for (int counter = 0; counter < logicList.Count; counter++)
+            {
+                int x = counter % 3;
+                int y = counter / 3;
+
+                Assert.IsTrue(logicList[counter].PlayerTurn(x, y) == TurnResult.Valid); // erster zug auf gültige koordinaten, muss valid ergeben
+                Assert.IsTrue(logicList[counter].GetGameBoard()[y, x] != Board.Empty);// testen ob der Zug auch auf dem Spielfeld vermerkt ist
+            }
+        }
+
+        [TestMethod]
         public void FirstMove_OutOfRange()
         {
             Logic l = new();
@@ -231,7 +250,7 @@ namespace TTT_Tests
 
             Assert.IsTrue(l.PlayerTurn(2, 2) == TurnResult.Invalid);//Ungültig da das Spiel schon vorbei ist
         }
-        
+
         [TestMethod]
         public void Player_GetCurrentPlayer()
         {
@@ -273,7 +292,7 @@ namespace TTT_Tests
             Assert.IsTrue(l.GetGameBoard()[1, 1] != Board.Empty);
             l.Reset();
             Assert.IsTrue(l.GetGameBoard()[1, 1] == Board.Empty);
-      
+
         }
 
         [TestMethod]
@@ -292,7 +311,7 @@ namespace TTT_Tests
 
             bool firstStarter = logicList[0].GetCurrentPlayer();
             bool different = false;
-            
+
             for (int counter = 1; counter < logicList.Count; counter++)
             {
                 if (logicList[counter].GetCurrentPlayer() != firstStarter)
