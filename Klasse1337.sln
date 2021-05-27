@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B4859EA3-E57F-4EE7-A256-DDFB7299561F}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Links.txt = Links.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sort", "Sort\Sort.csproj", "{395BFED2-A53B-4AB2-A720-9E52B4EA0E25}"
@@ -22,11 +23,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BMP-Reader", "BMP-Reader\BM
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SQLiteDemo", "SQLiteDemo\SQLiteDemo.csproj", "{9EB0708F-DCDE-47D1-86DA-9D9EDFE20E0B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTT_UIConsole", "TTT_UIConsole\TTT_UIConsole.csproj", "{E1481DC1-B344-449B-852B-FC44535D0903}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TTT_UIConsole", "TTT_UIConsole\TTT_UIConsole.csproj", "{E1481DC1-B344-449B-852B-FC44535D0903}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTT_Logic", "TTT_Logic\TTT_Logic.csproj", "{7F47984F-13ED-4753-8EB9-1FCC4827B8DA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TTT_Logic", "TTT_Logic\TTT_Logic.csproj", "{7F47984F-13ED-4753-8EB9-1FCC4827B8DA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TTT_Tests", "TTT_Tests\TTT_Tests.csproj", "{218570B0-9BC3-48DF-9212-971FBE3227B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TTT_Tests", "TTT_Tests\TTT_Tests.csproj", "{218570B0-9BC3-48DF-9212-971FBE3227B5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
