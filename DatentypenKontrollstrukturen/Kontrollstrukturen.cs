@@ -5,9 +5,9 @@ namespace DatentypenKontrollstrukturen
 {
     class Kontrollstrukturen
     {
-        public void Beispiele()
-        {
 
+        public static void Beispiele()
+        {
             #region IF-Verzweigung
 
             if (5 < 3) // testet ob eine aussage wahr ist
@@ -91,6 +91,10 @@ namespace DatentypenKontrollstrukturen
             List<int> ZahlenListe = new();
             // geht einen Container von anfang bis ende durch und führt den code für jedes element aus.
             // funktioniert mit fast allen containern
+            // item enthält eine KOPIE! des wertes welches für den aktuellen durchlauf vorgesehen ist.
+            // Änderungen an der kopie beeinflussen natürlich nicht das original.
+            // Sollte die Liste aus einem Referenz-Typen bestehen (Class) dann wird eine Kopie der referenz in Item
+            // bereitgestellt sodass diese auch weiterhin auf das Original Objekt zeigt.
             foreach (int item in ZahlenListe)
             {
                 Console.WriteLine(item);
