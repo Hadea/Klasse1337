@@ -1,1 +1,2 @@
 Ascii Text generator: https://patorjk.com/software/taag
+Lizenzen https://choosealicense.com/   https://choosealicense.com/licenses/
