@@ -166,3 +166,118 @@ public
 
 ulong
     ganzzahl ohne vorzeichen. 64Bit / 8 Byte länge. 0 bis 18 Trillionen.
+
+const
+    Schreibschutz. Das Feld muss direkt bei erstellung befüllt werden. Wird implizit auch static.
+
+readonly
+    Schreibschutz. Das Feld kann direkt und im Konstruktor befüllt werden, danach ist es fest.
+    
+init
+    Schreibschutz für ein Property. Das Property kann noch im Konstruktor befüllt werden und ist dann fest.
+    Ersetzt das set.
+
+checked
+    Schaltet die Überprüfung für den Variablenüberlauf ein. Überlauf ist wenn eine Variable durch eine mathematische
+    operation über ihren höchstwert hinaus befüllt wird. (funktionniert nur bei konstanten)
+    Beispiel bei int mit vorzeichen:    2147483647 + 1 = -2147483648
+
+unchecked
+    Schaltet die Überprüfung für den Variablenüberlauf aus
+
+continue
+    Beendet den durchlauf einer schleife und beginnt mit dem nächsten
+
+in
+    gibt eine Referenz einer Variable an eine Funktion weiter, diese ist aber für die Funktion schreibgeschützt.
+    Siehe ref und out.
+
+ref
+    Gibt eine Referenz einer Variable an eine Funktion weiter. diese darf alles damit anstellen.
+
+decimal
+    Fliesskommazahl mit 16Byte Speicherverbrauch. Präzisester Datentyp in C#. 28 Stellen genauigkeit.
+    Vorsicht: SQL versteht unter DECIMAL einen integer welcher ein gedachtes komma an einer stelle hat.
+
+int
+    Ganzzahl. Mit Vorzeichen 32Bit.  -2,14 Milliarden bis + 2,14 Milliarden
+
+return
+    Beendet eine Funktion und gibt, falls es die funktionssignatur verlangt, einen wert an den Aufrufer zurück.
+    Funktionen dürfen mehrere return-anweisungen haben. C# Prüft auch das mindestens eines für jeden codepfad getroffen wird.
+
+ushort
+    Ganzzahl. Kein Vorzeichen. 16Bit. 0 bis 65535.
+
+default
+    Wenn ein switch keinen passenden case findet wird der default-case benutzt
+
+interface
+    Beschreibt fähigkeiten (funktionen) einer Klasse. Es können beliebig viele Interfaces implementiert werden, auch wenn funktionen darin gleich heissen.
+    Wird auch für "dependency injection" verwendet um z.B. logik und ui mehr aufzutrennen. UI bekommt dann nur noch ein unbekanntes objekt welches ein
+    spezielles Interface implementiert hat. Dadurch wird es leichter austauschbar. Siehe loose coupling and tight coupling.
+
+sbyte
+    Ganzzahl mit Vorzeichen. 8Bit. -128 bis +127
+
+using
+    Oben in der Datei als erste zeilen: Um anzugeben aus welchen namespaces Klassen stammen können. Dadurch müssen wir Klassen die nicht im gleichen
+    namespace sind nicht jedesmal mit vollem namespace benennen. Keine Funktionalität, nur schreib-erleichterung.
+    Im Code: Eine Klasse  (meisst Ressourcen wie Dateien oder Netzwerk) ist solange gültig wie die geschweiften klammern gehen.
+    Auf der schliessenden klammer wird automatisch Dispose() aufgerufen (interface IDisposable) sodass das schliessen der ressource keinesfalls vergessen werden kann.
+
+delegate
+    Erstellt einen neuen Typ in welchem funktions-referenzen gespeichert werden. Der genaue Rückgabetyp und Parameter müssen exakt angegeben werden.
+
+internal
+    Innerhalb der Assembly (meisst deckungsgleich mit Projekt) ist diese Klasse / Variable sichtbar. Externe Projekte können diese nicht sehen.
+
+sealed
+    Bei Funktionen: Besagt das eine funktion nicht mit override überschrieben werden darf.
+    Bei Klassen: Besagt das von dieser nicht geerbt werden darf.
+
+virtual
+    Funktionen die in einer basisklasse als virtual markiert sind können mit override überschrieben werden.
+    Wird das kind-objekt unter dem typen der basisklasse angesprochen behält sie ihre spezielle funkionalität.
+
+do
+    Teil der fussgesteuerten do/while schleife. Markiert den punkt zu dem zurückgesprungen wird wenn die bedingung des while erfüllt ist
+
+is
+    Prüft ob eine Variable einen gewissen Typ entspricht. kann auch für null überprüfungen verwendet werden
+    Beispiel: if (parameter is not null) Console.WriteLine("geht");
+    Beispiel: if (parameter is Auto) Console.WriteLine("Auto gefunden");
+
+short
+    Ganzzahl mit vorzeichen, 16Bit 2Byte, -32768 bis +32767.
+
+void
+    Wenn eine Funktion keinen wert zurückgeben möchte.
+
+double
+    Gleitkommazahl, 8 Byte, 15 Stellen genau
+
+lock
+    schaltet in den singlethread modus für einen gewissen codeabschnitt
+
+sizeof
+    gibt die anzahl an Byte zurück die ein Objekt benötigt
+
+else
+    bestandteil von if/else. Beinhaltet den code welcher ausgeführt wird wenn im if ein false errechnet wird.
+    else ist optional
+
+long
+    Ganzzahl mit vorzeichen. 8Byte  -9Trillionen bis +9Trillionen
+
+while
+    Schleife welche läuft solange die bedingung true ergibt
+    bestandteil der do/while schleife. Wanna see me do it again (Spongebob)
+
+enum
+    Aufzählung. Ersetzt Zahlen durch worte um lesbarkeit zu verbessern. Bleibt technisch gesehen weiterhin ein
+    integer, verbraucht also keine extra ressourcen.
+    Gut in verbindung mit switch anweisungen.
+    Wird auch gern für Optionen verwendet welche zusammen als ein Parameter übertragen werden soll.
+    Sollte nicht in int oder string verwandelt werden da sich werte/anordnung ändern können und Textkonvertierungen
+    langsam sind.
