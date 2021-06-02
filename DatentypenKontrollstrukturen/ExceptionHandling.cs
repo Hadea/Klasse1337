@@ -38,6 +38,12 @@ namespace DatentypenKontrollstrukturen
                 Console.WriteLine(thrownExeption.StackTrace);
                 Console.ResetColor();
             }
+            finally
+            {
+                // hier machen wir aufräum-sachen
+                // ressourcen freigeben, netzwerkverbindungen trennen oder so
+                // läuft immer, egal ob exception fliegt oder nicht
+            }
 
             Console.WriteLine("beende funktion");
         }

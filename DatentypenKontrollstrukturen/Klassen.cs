@@ -12,6 +12,11 @@ namespace DatentypenKontrollstrukturen
             var b = new Auto(); //retro
             Auto c = new(); //neu
 
+            Auto z = new Delorean();
+            
+            a.OpenDoor();
+            z.OpenDoor();
+
             Delorean d = new(); // startet den Auto-Konstruktor und danach den Delorean-Konstruktor
             d.OpenDoor();
 
@@ -32,6 +37,10 @@ namespace DatentypenKontrollstrukturen
 
     class Auto : IOpenable
     {
+        protected int AnzahlDerTüren;
+        protected int Hubraum; //in ccm
+
+
         public Auto()
         {
             Console.WriteLine("Auto-Konstruktor gestartet");
@@ -49,9 +58,17 @@ namespace DatentypenKontrollstrukturen
 
     class Delorean : Auto // delorean ist ein spezialisiertes Auto
     {
+        bool fluxkompensatorLadestand; // automatisch private wenn keine Sichtbarkeit angegeben wurde
         public Delorean()
         {
             Console.WriteLine("Delorean-Konstruktor");
+            Hubraum = 3500;
+        }
+
+        public override void StartEngine()
+        {
+            base.StartEngine();
+            fluxkompensatorLadestand = true;
         }
 
         public override void OpenDoor() // ersetzt die geerbte funktion vollständig

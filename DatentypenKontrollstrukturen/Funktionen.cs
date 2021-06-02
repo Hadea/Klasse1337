@@ -123,6 +123,5 @@ namespace DatentypenKontrollstrukturen
             Console.Write("#");
             Thread.Sleep(50);
         }
-
     }
 }

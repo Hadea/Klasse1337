@@ -120,6 +120,23 @@ namespace DatentypenKontrollstrukturen
                     break;
             }
 
+            // schreibweise mit if und sehr vielen scopes (klammern)
+            if (counter == 1 || counter == 7)
+            {
+                Console.WriteLine("Da ist eine eins oder sieben drin");
+            }
+            else
+            {
+                if (counter == 3)
+                {
+                    Console.WriteLine("Hab ne 3");
+                }
+                else
+                {
+                    Console.WriteLine("Bin im Default gelandet");
+                }
+            }
+
 
             /////////////////////////////////////////////////
             // kurzschreibweise für switch wenn dieser über die befüllung einer variablen entscheidet

@@ -7,6 +7,8 @@ namespace DatentypenKontrollstrukturen
     {
         public static void DoSomething()
         {
+            #region Arrays
+
             int[] ZahlenArray = new int[20];
             /* Entspricht in Java und C++ dem Array
              * 
@@ -56,9 +58,11 @@ namespace DatentypenKontrollstrukturen
              * zugriff ist ein wenig langsamer da die einzelnen XArrays im RAM verstreut sind
              */
             Console.WriteLine(JaggedArray[0][5]);
+            #endregion
 
             ///////////////////////////////////////////////
 
+            #region List
             List<byte> ByteListe = new List<byte>();// erstellt eine leere Liste mit kapazität 8
             /* Entspricht dem C++ Vector, in Java ist es die ArrayList
              * 
@@ -73,10 +77,12 @@ namespace DatentypenKontrollstrukturen
             ByteListe.Add(5); // fügt das element ans ende der liste
             Console.WriteLine(ByteListe[0]);
             Console.WriteLine(ByteListe.Count); // anzahl der einträge
-            Console.WriteLine(ByteListe.Capacity); // anzahl möglichen einträge bis eine vergrösserung stattfindet
+            Console.WriteLine(ByteListe.Capacity); // anzahl möglichen einträge bis eine vergrösserung stattfindet 
+            #endregion
 
             //////////////////////////////////////////////////
 
+            #region LinkedList
             LinkedList<short> DoppelteVerkettungVonShort = new LinkedList<short>();
             DoppelteVerkettungVonShort.AddLast(5);
             /* Entspricht in Java der LinkedList und C++ List
@@ -89,7 +95,8 @@ namespace DatentypenKontrollstrukturen
             foreach (var item in DoppelteVerkettungVonShort)
             {
                 Console.WriteLine(item);
-            }
+            } 
+            #endregion
 
             /////////////////////////////////////////////////
 

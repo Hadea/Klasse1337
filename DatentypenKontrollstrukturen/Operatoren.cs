@@ -173,7 +173,7 @@ namespace DatentypenKontrollstrukturen
             Console.WriteLine(DateTime.Now.ToString(CultureInfo.CreateSpecificCulture("en-US")));// datum in englisch
             Console.ReadLine();
         }
-
+        //TODO: implement/override/overload operator
 
     }
 
