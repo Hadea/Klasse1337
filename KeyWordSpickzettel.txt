@@ -1,0 +1,168 @@
+abstract 
+    wird für klassen und funktionen verwendet.
+    Eine funktion die keinen inhalt hat ist abstract und muss beim erben ersetzt werden (override).
+    Hat eine klasse eine abstrakte funktion muss sie auch abstract werden.
+
+event
+    speichert RAM-Adressen von Funktionen (ähnlich wie bei variablen die Objekte beinhalten)
+    event ist eine vorgefertigte version des delegate mit 2 Parametern und void rückgabewert
+
+namespace
+    organisiert die Klassen nach thema. Dadurch können in unterschiedlichen namespaces klassen mit gleichem
+    Namen existieren. Name ist frei wählbar. Jedes Projekt und jeder Ordner innerhalb des Projektes
+    bekommt standardmässig einen eigenen namespace passend zum namen. Alles änderbar :)
+
+static
+    variablen welche ohne Objekt bereits existieren. Alle Objekte einer bestimmten Klasse teilen sich diese
+    eine Variable (instance-counting).
+    Bei funktionen wird die Funktion direkt über den Klassennamen aufgerufen und ist nicht an ein objekt gebunden.
+    Diese funktionen laufen immer ohne Objekt, also können nicht auf variablen zugreifen die nur im objekt existieren.
+    Beispiel: File.Exists("test.txt"), Program.Main(string[] args)
+
+as
+    castet (uminterpretiert) einen Datentypen in einen anderen. Wenn der cast fehlschlägt ist das ergebnis null.
+    Delorean del = new();
+    Auto car = del as car;
+
+new
+    Erstellt ein Objekt von der angegeben Klasse. Startet den Konstruktor und gibt die RAM-Adresse zurück.
+
+string
+    Zeichenfolge aus beliebig vielen text-zeichen. Standardmässig UTF-16, also 2 byte pro zeichen. Die länge
+    der Zeichenfolge wird dabei auch gespeichert. Ein string ist in C# unveränderlich.
+
+base
+    ruft eine Funktion aus der basisklasse auf von welcher geerbt wurde. Besondere schreibweise bei konstruktoren!
+
+null
+    wird verwendet um eine referenz-variable nicht auf ein objekt sondern auf nix (RAM-Adresse 0, welche reserviert
+    ist und niemals zugegriffen werden kann) zeigen zu lassen.
+    Damit wird ausgedrückt das diese Variable nicht mit einem objekt befüllt ist.
+
+struct
+    Fasst daten mit unterschiedlichen Typen zusammen zu einer logischen einheit. Normalerweise nur mit public
+    variablen befüllt.
+    Value-Type. Es wird wie bei einem integer oder bool immer eine Kopie weitergegeben. Kein new.
+    Kann einen Überladenen Konstruktor enthalten welche alle variablen füllt.
+
+bool
+    ein variable die ein einzelnes bit enthält. Befüllt wird es mit den worten true oder false.
+
+false
+    der wert eines bools wenn er auf 0 steht.
+
+object
+    Basisklasse aller Klassen. Wird keine Vererbung angegeben wird immer von object geerbt.
+    Enthält nützliche funktionen auf die immer zugegriffen werden kann (vererbung).
+    Beispiel: ToString() ist in jeder Klasse vorhanden da jede klasse von object erbt, direkt oder indirekt
+
+switch
+    Auswahlanweisung wo eine von mehreren codeblöcken (case) ausgeführt wird. Siehe default
+
+break
+    Beendet schleifen oder einen case aus einem switch und springt hinter die schleife/swtich
+
+finally
+    wird verwendet im zusammenhang mit exceptions. Wird eine ressource im try geöffnet und bearbeitet wird sie
+    im finally block wieder geschlossen. Dieser wird immer ausgeführt, egal ob eine exception geworfen wird oder
+    der code normal durchläuft.
+
+operator
+    wird für funktionen mit besonderem namen verwendet welche normalerweise nicht gültig währen
+    Beispiel: public static byte operator /(byte a, byte b)
+    funktionen die als operator erstellt wurden können in der einfachen schreibweise verwendet werden
+    5 / 3
+    erste zahl entspricht erstem parameter, zweite zahl ist zweiter parameter, zwischen den zahlen der funkionsname
+
+this
+    die referenz zum eigenen Objekt.
+    wird verwendet wenn z.B. Namenkonflikte auftreten und Variablen auf Objektebene und die Parameter gleich heissen
+    Alternativ um anderen Funktionen die information mitzugeben wer sie gestartet hat
+
+byte
+    8bit Ganzzahl: Werte von 0 bis 255
+
+out
+    out ist eine besondere form von ref
+    Funktionen mit out-parametern füllen die variable die mit out angegeben ist garantiert mit einem wert.
+    eine möglichkeit mehrere werte von einer funktion zurück zu erhalten
+    Beispiel: int.TryParse("123", out i)
+
+throw
+    wirft eine exception wenn eine Funktion einen fehler entdeckt. z.B. die funktion division prüft ob der divisor
+    0 ist, und wenn das eintrifft darf nicht geteilt werden, ergo; throw new DivisionByZeroException()
+    throw beendet die funktion (ähnlich return) und auch alle übergeordneten falls diese kein try/catch machen.
+
+case
+    beschreibt einen fall für die switchanweisung. muss mit break beendet werden. Es können mehrere den gleichen
+    code haben. Dazu werden sie einfach direkt hintereinander erwähnt.  case 5: case 7: ..... break;
+
+float
+    gebrochene zahlen, 4Byte gross. Präzise bis ca 7 stellen. Abstände zwischen zwei zahlen wachsen mit grösse
+    der zahlen. Beim Vergleich immer runden bei gleichheit oder mit kleiner/grösser arbeiten.
+    float kann auch NaN "Not a Number" enthalten welches besagt das da keine Zahl drin steht.
+    vergleiche mit NaN ist nicht erlaubt und daher immer false.
+    Float kann auch infinite enthalten
+
+override
+    Ersetzt eine funktion aus der Basisklasse mit eigenem code. Die ersetzte muss dafür virtual sein oder selbst
+    virtual mit override überschreiben. Die funktion aus der basisklasse kann mit base vwerwendet werden.
+
+true
+    ein wert des bool datentyps. repräsentiert die binäre 1
+
+catch
+    gehört zum try/catch. Wenn eine opration im try fehlschlägt wird die geworfene exception mit catch gefangen
+    Mehrere catch hintereinander sind erlaubt und werden der reihenfolge nach geprüft.
+    catch auf die basisklasse aller exceptions "Exception" fängt alle exceptions. POKEMON!
+
+for
+    Schleife für eine vorhersehbare anzahl an durchläufen. Benutzt normalerweise eine zählvariable welche auch
+    in der definition der for geprüft und verändert wird.
+
+params
+    fasst mehrere parameter gleichen typs automatisch in ein array zusammen. Nützlich wenn wir nicht genau
+    festlegen wollen wieviele parameter in der funktion übergeben werden.
+
+try
+    gehört zum try/catch. Wenn ein funktionsaufruf eine exception werfen könnte können wir mit try ankündigen das
+    wir diesen abhandeln wollen.
+
+char
+    Datentyp für ein einzelnes Zeichen. 2 Byte gross.
+
+foreach
+    for-schleife welche einen Iterator nutzt. Iteratoren werden von allen Containern bereitgestellt sodass 
+    einfach über den gesamten Container gearbeitet werden kann.
+
+private
+    Auf Klassenebene: versteckt eine klasse vor anderen Assemblys, andere Projekte können keine inztanzen erstellen
+    Auf Memberebene: Versteckt den Member, der Member wird auch nicht vererbt
+
+typeof
+    Wenn wir anstelle des Inhaltes den Datentypen an eine Funktion weitergeben möchten.
+
+goto
+    springt zu einer markierten stelle
+    Mit bedacht nutzen, da es schnell unübersichtlich wird wie der code abläuft.
+
+protected
+    reagiert genau wie private und versteckt Member oder Klassen, aber wird vererbt.
+
+uint
+    Ganzzahl ohne vorzeichen. 32Bit / 4Byte. 0 bis 4,29 Milliarden
+
+class
+    Erstellt einen neuen Referenz-Typ für variablen. Zum erstellen eines Objektes diesen typs new verwenden.
+    Fasst eigenschaften und fähigkeiten zu einer logischen einheit zusammen.
+
+if
+    Überprüft etwas. Der inhalt der Klammer muss dabei ein bool ergeben, wenn dieser true ergibt wird der
+    inhalt des if ausgeführt, wenn false herauskommt dann wird if übersprungen (und gegebenenfalls das else angesprochen).
+
+public
+    Macht eine Klasse für alle Assemblies sichtbar.
+    Auf memberebene: für alle anderen sichtbar/veränderbar/nutzbar
+
+ulong
+    ganzzahl ohne vorzeichen. 64Bit / 8 Byte länge. 0 bis 18 Trillionen.
