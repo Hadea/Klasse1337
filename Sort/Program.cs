@@ -36,7 +36,7 @@ namespace Sort
 
 
             DateTime startTimeSelection = DateTime.Now;
-            SelectionSortNaiive(ArrayToSortA);
+            SelectionSortNaiive(ArrayToSortA, sortfuncStuff);
             DateTime endTimeSelection = DateTime.Now;
 
             uint checkSumSelectionSort = 0;
@@ -141,7 +141,12 @@ namespace Sort
             }
         }
 
-        private static void SelectionSortNaiive(byte[] ArrayToSort)
+        private static int sortfuncStuff(byte A, byte B)
+        {
+            if (B > A) return -1;
+            return 1;
+        }
+        private static void SelectionSortNaiive(byte[] ArrayToSort, Func<byte,byte,int> sorter)
         {
             // sortieren
 
@@ -149,7 +154,7 @@ namespace Sort
             {
                 for (int inner = outer + 1; inner < ArrayToSort.Length; inner++)//alle verbleibenden elemente des array durchgehen
                 {
-                    if (ArrayToSort[outer] > ArrayToSort[inner])//wenn element an äusserem zähler grösser als element an innerem zähler
+                    if ( sorter(ArrayToSort[inner],ArrayToSort[outer]) < 0)//wenn element an äusserem zähler grösser als element an innerem zähler
                     {
                         byte backup = ArrayToSort[outer];//backup erstellen vom äusseren wert
                         ArrayToSort[outer] = ArrayToSort[inner];//äusseren wert mit innerem überschreiben
