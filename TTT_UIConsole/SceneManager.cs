@@ -10,6 +10,13 @@ namespace TTT_UIConsole
     {
         private static SceneManager mInstance;
         private readonly LinkedList<Scene> mSceneList;
+        private readonly Timer mTimer = new();
+
+        public int FPS
+        {
+            get { return mTimer.FPS; }
+        }
+
 
         public static SceneManager Instance
         {
@@ -21,6 +28,11 @@ namespace TTT_UIConsole
             }
         }
 
+        internal void ClearScenes()
+        {
+            throw new NotImplementedException();
+        }
+
         private SceneManager()
         {
             // niemand darf einen SceneManager erstellen, darum Private
@@ -28,7 +40,11 @@ namespace TTT_UIConsole
         }
 
 
-        public void Update() => mSceneList.Last.Value.Update();
+        public void Update()
+        {
+            mTimer.Update();
+            mSceneList.Last.Value.Update();
+        }
         public void Draw() => mSceneList.Last.Value.Draw();
 
         public int Count

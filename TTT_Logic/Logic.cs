@@ -2,6 +2,9 @@
 
 namespace TTT_Logic
 {
+    /// <summary>
+    /// Enthält die Logik für Tic Tac Toe
+    /// </summary>
     public class Logic
     {
         private Board[,] mGameBoard = new Board[3, 3];
@@ -20,6 +23,12 @@ namespace TTT_Logic
             return mGameBoard;
         }
 
+        /// <summary>
+        /// Nimmt für das aktuelle Spiel die Koordinaten des Zuges entgegen und wertet diesen Zug aus.
+        /// </summary>
+        /// <param name="x">X-Koordinate auf dem Spielfeld</param>
+        /// <param name="y">Y-Koordinate auf dem Spielfeld</param>
+        /// <returns>Gibt das Ergebnis des Zuges zurück als <see cref="TurnResult"/></returns>
         public TurnResult PlayerTurn(int x, int y)
         {
             if (x > 2 || y > 2) return TurnResult.Invalid;
@@ -27,10 +36,10 @@ namespace TTT_Logic
             if (mGameBoard[y, x] != Board.Empty) return TurnResult.Invalid;
             if (!mGameRunning) return TurnResult.Invalid;
 
-            mGameBoard[y, x] = mCurrentPlayer ? Board.O : Board.X;
+            mGameBoard[y,x] = mCurrentPlayer ? Board.O: Board.X;
             mTurnCounter++;
 
-            if (mCheckWin())
+            if (checkWin())
             {
                 mGameRunning = false;
                 return mCurrentPlayer ? TurnResult.WinO : TurnResult.WinX;
@@ -43,9 +52,14 @@ namespace TTT_Logic
             }
         }
 
-        private bool mCheckWin()
+        /// <summary>
+        /// Prüft ob es einen Gewinner gibt
+        /// </summary>
+        /// <returns>true wenn es einen gewinner gibt, sonst false</returns>
+        private bool checkWin()
         {
             if (mTurnCounter < 5) return false;
+            //TODO: check center first
 
             if (mGameBoard[0, 0] != Board.Empty)
             {
@@ -73,11 +87,18 @@ namespace TTT_Logic
             return mCurrentPlayer;
         }
 
-        public void Reset()
+        public void ResetGame()
         {
             mGameRunning = true;
             mCurrentPlayer = !mCurrentPlayer;
-            mGameBoard = new Board[3, 3];
+            for (int Y = 0; Y < 3; Y++)
+            {
+                for (int X = 0; X < 3; X++)
+                {
+                    mGameBoard[Y,X] = Board.Empty;
+                }
+            }
+
             mTurnCounter = 0;
         }
     }

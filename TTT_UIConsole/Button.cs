@@ -2,29 +2,41 @@
 
 namespace TTT_UIConsole
 {
-    //todo: finish button
     class Button : Label
     {
-        private readonly Action mCommand;
+        private readonly ButtonEvent mCommand;
         private const ConsoleColor mColorNotSelected = ConsoleColor.Black;
         private const ConsoleColor mColorSelected = ConsoleColor.Yellow;
+        private ConsoleColor mCurrentColor = mColorNotSelected;
+        private bool mIsSelected;
 
-        public bool IsSelected { get; set; }
+        public bool IsSelected
+        {
+            get { return mIsSelected; }
+            set
+            {
+                mIsSelected = value;
+                mCurrentColor = IsSelected ? mColorSelected : mColorNotSelected;
+            }
+        }
 
-        public Button(int X, int Y, string Text, Action btnStartGame) : base(X, Y, Text)
+        public Button(int X, int Y, string Text, ButtonEvent btnStartGame) : base(X, Y, Text)
         {
             mCommand = btnStartGame;
         }
 
-        public void Execute()
+        public void HandleInput(ConsoleKey Key)
         {
-            mCommand();
+            if (Key == ConsoleKey.Enter)
+            {
+                mCommand();
+            }
         }
 
         public override void Draw()
         {
+            Console.BackgroundColor = mCurrentColor;
             Console.SetCursorPosition(mPosX, mPosY);
-            Console.BackgroundColor = IsSelected ? mColorSelected : mColorNotSelected;
             Console.WriteLine(mText);
         }
     }

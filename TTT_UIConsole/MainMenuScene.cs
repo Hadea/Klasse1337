@@ -13,25 +13,11 @@ namespace TTT_UIConsole
 
             mButtonList[mActiveButtonID].IsSelected = true;
         }
-
-        public override void Update()
+        public override void Draw()
         {
-            switch (Console.ReadKey(true).Key)
-            {
-                case ConsoleKey.UpArrow:
-                    mButtonList[mActiveButtonID].IsSelected = false;
-                    mActiveButtonID = (byte)(mActiveButtonID == 0 ? mButtonList.Count - 1 : mActiveButtonID - 1); //TODO, was wenn wir schon ganz oben sind?
-                    mButtonList[mActiveButtonID].IsSelected = true;
-                    break;
-                case ConsoleKey.DownArrow:
-                    mButtonList[mActiveButtonID].IsSelected = false;
-                    mActiveButtonID = (byte)(mActiveButtonID == mButtonList.Count - 1 ? 0 : mActiveButtonID + 1);
-                    mButtonList[mActiveButtonID].IsSelected = true;
-                    break;
-                case ConsoleKey.Enter:
-                    mButtonList[mActiveButtonID].Execute();
-                    break;
-            }
+            base.Draw();
+            Console.SetCursorPosition(0, 0);
+            Console.Write(SceneManager.Instance.FPS);
         }
     }
 }
