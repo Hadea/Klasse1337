@@ -6,13 +6,10 @@ namespace TTT_UIConsole
     internal class EndGameScene : Scene
     {
         private readonly Logic mLogic;
-        private readonly TurnResult mTurnResult;
-
+       
         public EndGameScene(Logic RunningLogic, TurnResult LastTurnResult, GameScene gameScene)
         {
             mLogic = RunningLogic;
-            mTurnResult = LastTurnResult;
-
         
             mLabelList.Add(new Label(30,5,"Spielende"));
             mLabelList.Add(new Label(30,6,LastTurnResult.ToString()));
