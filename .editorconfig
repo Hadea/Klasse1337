@@ -56,6 +56,8 @@ dotnet_naming_rule.constant_fields_should_be_pascal_case.style    = camel_case_s
 dotnet_naming_symbols.constant_fields.applicable_kinds            = field
 dotnet_naming_symbols.constant_fields.applicable_accessibilities  = *
 dotnet_naming_symbols.constant_fields.required_modifiers          = const
+dotnet_diagnostic.CA1708.severity=warning
+dotnet_diagnostic.CA1716.severity=suggestion
 ###############################
 # C# Coding Conventions       #
 ###############################

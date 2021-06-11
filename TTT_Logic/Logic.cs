@@ -7,17 +7,24 @@ namespace TTT_Logic
     /// </summary>
     public class Logic
     {
-        private Board[,] mGameBoard = new Board[3, 3];
+        private readonly Board[,] mGameBoard = new Board[3, 3];
         private bool mCurrentPlayer;
         private bool mGameRunning = true;
         private byte mTurnCounter = 0;
 
+        /// <summary>
+        /// Konstruktor startet ein neues Spiel mit zufälligem Beginner
+        /// </summary>
         public Logic()
         {
             Random rndGen = new();
             mCurrentPlayer = rndGen.Next() % 2 == 1;
         }
 
+        /// <summary>
+        /// Das aktuelle Spielfeld wird zurückgegeben.
+        /// </summary>
+        /// <returns>Aktueller aufbau des Spiels als 2 dimensionales <see cref="Board"/> Array</returns>
         public Board[,] GetGameBoard()
         {
             return mGameBoard;
@@ -82,11 +89,18 @@ namespace TTT_Logic
             return false;
         }
 
+        /// <summary>
+        /// Besagt welcher Spieler gerade am Zug ist
+        /// </summary>
+        /// <returns>Akuteller Spieler. O ist true, X ist false</returns>
         public bool GetCurrentPlayer()
         {
             return mCurrentPlayer;
         }
 
+        /// <summary>
+        /// Startet ein neues Spiel, der Spieler der nicht den letzten Zug gemacht hat (z.B. Verlierer) beginnt.
+        /// </summary>
         public void ResetGame()
         {
             mGameRunning = true;

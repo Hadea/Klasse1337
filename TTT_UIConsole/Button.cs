@@ -10,6 +10,9 @@ namespace TTT_UIConsole
         private ConsoleColor mCurrentColor = mColorNotSelected;
         private bool mIsSelected;
 
+        /// <summary>
+        /// Selektiert oder Deselektiert den Button.
+        /// </summary>
         public bool IsSelected
         {
             get { return mIsSelected; }
@@ -20,11 +23,22 @@ namespace TTT_UIConsole
             }
         }
 
-        public Button(int X, int Y, string Text, ButtonEvent btnStartGame) : base(X, Y, Text)
+        /// <summary>
+        /// Erstellt einen neuen Button
+        /// </summary>
+        /// <param name="X">Horizontaler Abstand zum linken Rand</param>
+        /// <param name="Y">Vertikaler Abstand zum oberen Rand</param>
+        /// <param name="Text">Text welcher auf dem Button stehen soll</param>
+        /// <param name="Command">Kommando welches ausgeführt werden soll wenn der Button mit Enter bestätigt wird</param>
+        public Button(int X, int Y, string Text, ButtonEvent Command) : base(X, Y, Text)
         {
-            mCommand = btnStartGame;
+            mCommand = Command;
         }
 
+        /// <summary>
+        /// Lässt den button auf Tastaturkommandos reagieren
+        /// </summary>
+        /// <param name="Key">Taste welche mit Console.ReadKey() gelesen wurde</param>
         public void HandleInput(ConsoleKey Key)
         {
             if (Key == ConsoleKey.Enter)
@@ -33,6 +47,9 @@ namespace TTT_UIConsole
             }
         }
 
+        /// <summary>
+        /// Zeichnet den Button auf die Console
+        /// </summary>
         public override void Draw()
         {
             Console.BackgroundColor = mCurrentColor;
