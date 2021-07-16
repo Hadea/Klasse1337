@@ -1,4 +1,6 @@
-﻿namespace DatentypenKontrollstrukturen
+﻿using System;
+
+namespace DatentypenKontrollstrukturen
 {
     class Datentypen
     {
@@ -29,14 +31,17 @@
 
         // Zeichen
 
-        string Text = "Hallo"; // Text/Zeichenkette, 2Byte pro Zeichen, Anführungszeichen
+        string Text = "Hallo"; // Text/Zeichenkette, 2Byte pro Zeichen, Anführungszeichen, interpretiert \n als Enter und auch weitere sonderzeichen
+        // alternativen falls sonderzeichen oder fülltexte nötig sind
+        string TextB = $"Meine Position {Environment.CurrentDirectory}"; // $ besagt das sowohl sonderzeichen wie \n interpretiert werden als auch fülltext mit geschweiften klammern
+        string TextLiterally = @"keinerlei sonderfunktionen \n {blub}";// @ deaktiviert sämtliche interpretationen und nimmt den string so wie er da steht
+
         char Buchstabe = 'P'; // ein einzelnes Zeichen, 2 Byte, Hochkomma
 
         // Bit
         bool EinzelnesBit; // nur true oder false
 
         //todo: cast und convert und parse und tostring
-
 
     }
 }
