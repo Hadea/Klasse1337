@@ -106,11 +106,11 @@ namespace DatentypenKontrollstrukturen
 
 
         // Bonus : Die Rekursive Fibonacci Funktion umschreiben das sie zwischenergebnisse speichern kann
-        public static int FibonacciMemoization(int Number, int[] precalculated = null )
+        public static int FibonacciMemoization(int Number, int[] precalculated = null)
         {
             SlowDown();
             if (Number < 3) return 1;
-            if (precalculated is null) precalculated = new int[Number+1];
+            if (precalculated is null) precalculated = new int[Number + 1];
             if (precalculated[Number] == 0)
                 precalculated[Number] = FibonacciMemoization(Number - 1, precalculated) + FibonacciMemoization(Number - 2, precalculated);
 
@@ -123,5 +123,34 @@ namespace DatentypenKontrollstrukturen
             Console.Write("#");
             Thread.Sleep(50);
         }
+
+        public static void ParameterDemo(int Alpha, ref int Bravo, in int Charly, out int Delta)
+        {
+            Alpha *= 2;
+            Bravo *= 2;
+            // Charly *= 2; Geht nicht, da schreibgeschützt "in"
+            Bravo = Charly * 2;
+
+            // Die out-variable muss mindestens einmal geschrieben worden sein bevor die funktion endet
+            Delta = 2;
+            Console.WriteLine(Delta);
+        }
+
+        public static void ParamsDemo(params int[] ZahlenArray)
+        {
+
+        }
+
+        public static void PrintLine(byte Ausrichtung, params string[] Texte)
+        {
+            string AusgabeText = String.Empty;
+            for (int counter = 0; counter < Texte.Length; counter++)
+            {
+                AusgabeText += Texte[counter];
+            }
+
+            Console.WriteLine(AusgabeText);
+        }
+
     }
 }

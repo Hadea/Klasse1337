@@ -84,7 +84,7 @@ namespace DatentypenKontrollstrukturen
 
             #region LinkedList
             LinkedList<short> DoppelteVerkettungVonShort = new LinkedList<short>();
-            DoppelteVerkettungVonShort.AddLast(5);
+            DoppelteVerkettungVonShort.AddLast(-29999);
             /* Entspricht in Java der LinkedList und C++ List
              * Speichert eine Kette von elementen, jedes element kennt dabei die RAM-Adresse des 
              * vorgängers und nachfolgers (doppelt verkettet).
