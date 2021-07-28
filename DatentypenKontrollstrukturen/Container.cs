@@ -95,17 +95,64 @@ namespace DatentypenKontrollstrukturen
             foreach (var item in DoppelteVerkettungVonShort)
             {
                 Console.WriteLine(item);
-            } 
+            }
             #endregion
 
             /////////////////////////////////////////////////
 
-            //TODO: Dictionary
+
+            #region Dictionary
+
+            Dictionary<string, int> lieblingsZahlen = new();
+
+            TestKlasse t = new();
+            lieblingsZahlen.Add("Lutz", 1337);// fügt einen Eintrag in das Dictionary
+            lieblingsZahlen.Add("Dominik", 42);
+            lieblingsZahlen["Bastian"] = 4; // da "Bastian" nicht existiert wird es erstellt
+
+            Console.WriteLine(lieblingsZahlen["Lutz"]);
+            Console.WriteLine(lieblingsZahlen["Bastian"]);
+
+            // zugriffe auf elemente die nicht existieren werfen eine KeyNotFoundException, was die Anwendung verlangsamen könnte
+
+            int lieblingszahlVonLutz;
+            if (lieblingsZahlen.TryGetValue("Lutz", out lieblingszahlVonLutz)) // funktioniert ähnlich wie das TryParse. Versucht zu lesen und gibt über den Return-Wert aus ob es geklappt hat
+            {
+                Console.WriteLine("Hab die Zahl von Lutz auslesen können: " + lieblingszahlVonLutz);
+            }
+            else
+            {
+                Console.WriteLine("Lutz war nicht im Dictionary");
+            }
+
+            // zugriffe auf alle elemente kann über ein foreach erfolgen
+            foreach (var item in lieblingsZahlen)
+            {
+                Console.WriteLine("Lieblingszahl von " + item.Key + " ist " + item.Value);
+            }
+
+            lieblingsZahlen.Remove("Lutz"); // Einen Eintrag löschen
+
+            /*
+                unter der Haube wird der Key (in diesem beispiel ein string) über die funktion GetHashCode() in ein
+                Integer verwandelt. Wenn also ein eigen erstelltes Objekt als key verwendet wird muss sichergestellt
+                werden das es immer auf die gleiche weise beim aufruf auf GetHashCode() reagiert. Sollte sich der
+                rückgabewert ändern findet man seine elemente nicht wieder.
+             */
+
+
+            #endregion
+
             //TODO: Queue
             //TODO: Stack
 
 
         }
+
+    }
+
+    class TestKlasse
+    {
 
     }
 }
